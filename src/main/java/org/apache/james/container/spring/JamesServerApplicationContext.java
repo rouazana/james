@@ -16,56 +16,25 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.james.container.spring.beanfactory;
+package org.apache.james.container.spring;
 
-import org.springframework.context.ApplicationContext;
+import java.io.File;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
-import java.io.File;
-
-/**
- * Override the ResourceLoader capabilities from the AvalonApplicationContext
- * supporting JAMES' conf/var specific behaviours and the "classpath:" prefix.
- */
-public class JamesApplicationContext extends AvalonApplicationContext {
+public class JamesServerApplicationContext extends ClassPathXmlApplicationContext{
 
     private static final String FILE_PROTOCOL = "file://";
+    private static final String FILE_PROTOCOL_ABSOLUTE = "file:///";
+
     private static final String FILE_PROTOCOL_AND_CONF = "file://conf/";
     private static final String FILE_PROTOCOL_AND_VAR = "file://var/";
     
-    public static final String JAMES_ASSEMBLY_CONF = "james-assembly.xml";
-
-
-    /**
-     * configuration-by-convention constructor, tries to find default config files on classpath
-     */
-    public static JamesApplicationContext newJamesApplicationContext() {
-        return newJamesApplicationContext(SPRING_BEANS_CONF, JAMES_ASSEMBLY_CONF);
-    }
-    
-    public static JamesApplicationContext newJamesApplicationContext(String containerConf, String applicationConf) {
-        return newJamesApplicationContext(new ClassPathResource(containerConf), new ClassPathResource(applicationConf));
-    }
-    
-    
-    public static JamesApplicationContext newJamesApplicationContext(Resource containerConfigurationResource,
-                                    Resource applicationConfigurationResource) {
-        JamesApplicationContext result = new JamesApplicationContext(null, containerConfigurationResource, applicationConfigurationResource);
-        result.refresh();
-        return result;
-    }
-
-    
-    public JamesApplicationContext(ApplicationContext parent,
-            Resource containerConfigurationResource,
-            Resource applicationConfigurationResource) {
-        super(parent, containerConfigurationResource, applicationConfigurationResource);
-    }
-
-    public ClassLoader getClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
+    public JamesServerApplicationContext(String[] configs) {
+    	super(configs);
     }
 
     public Resource getResource(String fileURL) {
@@ -79,8 +48,11 @@ public class JamesApplicationContext extends AvalonApplicationContext {
                 file = new File("../conf/" + fileURL.substring(FILE_PROTOCOL_AND_CONF.length()));
             } else if (fileURL.startsWith(FILE_PROTOCOL_AND_VAR)) {
                 file = new File("../var/" + fileURL.substring(FILE_PROTOCOL_AND_VAR.length()));
+            } else if (fileURL.startsWith(FILE_PROTOCOL_ABSOLUTE)) {
+            	file = new File("/" + fileURL.substring(FILE_PROTOCOL_ABSOLUTE.length()));
             } else {
-                file = new File("./" + fileURL.substring(FILE_PROTOCOL.length()));
+            	// move to the root folder of the spring deployment
+                file = new File("../" + fileURL.substring(FILE_PROTOCOL.length()));
             }
             r = new FileSystemResource(file);
         } else {
@@ -88,6 +60,5 @@ public class JamesApplicationContext extends AvalonApplicationContext {
         }
         return r;
     }
-
 
 }

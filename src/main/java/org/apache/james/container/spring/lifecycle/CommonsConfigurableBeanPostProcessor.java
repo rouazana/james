@@ -16,19 +16,40 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.james.container.spring;
+package org.apache.james.container.spring.lifecycle;
 
+import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.james.container.spring.ConfigurationProvider;
+import org.apache.james.lifecycle.Configurable;
 
 /**
- * Bootstraps James using a Spring container
+ * Inject Commons Configuration to beans which implement the Configurable interface
+ * 
+ *
  */
-public class Main {    
+public class CommonsConfigurableBeanPostProcessor extends
+		AbstractLifeCycleBeanPostProcessor<Configurable> {
 
-    public static void main(String[] args) {    	
-    	JamesServerApplicationContext context = new JamesServerApplicationContext(
-    	        new String[] {"spring-beans.xml"});
-    	context.registerShutdownHook();
+	private ConfigurationProvider provider;
+	
+	@Override
+	protected void executeLifecycleMethodBeforeInit(Configurable bean, String beanname,
+			String lifecyclename) throws Exception {
+		HierarchicalConfiguration beanConfig = provider.getConfigurationForComponent(lifecyclename);
+		if(beanConfig != null) {
+		    bean.configure(beanConfig);
+		}
+	}
 
-    }
+
+
+	public void setConfigurationProvider(ConfigurationProvider provider) {
+		this.provider = provider;
+	}
+
+	@Override
+	protected Class<Configurable> getLifeCycleInterface() {
+		return Configurable.class;
+	}
 
 }

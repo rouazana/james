@@ -16,19 +16,32 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.james.container.spring;
+package org.apache.james.container.spring.lifecycle;
 
+import org.apache.james.container.spring.LogProvider;
+import org.apache.james.lifecycle.LogEnabled;
 
 /**
- * Bootstraps James using a Spring container
+ * Inject Commons Log to beans which implement LogEnabled
+ * 
+ *
  */
-public class Main {    
+public class LogEnabledBeanPostProcessor extends AbstractLifeCycleBeanPostProcessor<LogEnabled> {
 
-    public static void main(String[] args) {    	
-    	JamesServerApplicationContext context = new JamesServerApplicationContext(
-    	        new String[] {"spring-beans.xml"});
-    	context.registerShutdownHook();
+	private LogProvider provider;
 
-    }
+	@Override
+	protected void executeLifecycleMethodBeforeInit(LogEnabled bean, String beanname,
+			String lifecyclename) throws Exception {
+		bean.setLog(provider.getLogForComponent(lifecyclename));
+	}
 
+	@Override
+	protected Class<LogEnabled> getLifeCycleInterface() {
+		return LogEnabled.class;
+	}	
+	
+	public void setLogProvider(LogProvider provider) {
+		this.provider = provider;
+	}
 }
