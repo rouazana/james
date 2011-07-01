@@ -87,7 +87,7 @@
     </fileSet>
     
      <fileSet>
-      <directory>src/scripts/</directory>
+      <directory>src/main/app/bin/</directory>
       <outputDirectory>bin</outputDirectory>
       <fileMode>0755</fileMode>
       <lineEnding>dos</lineEnding>
@@ -96,7 +96,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>src/scripts/</directory>
+      <directory>src/main/app/bin/</directory>
       <outputDirectory>bin</outputDirectory>
       <fileMode>0755</fileMode>
       <lineEnding>unix</lineEnding>
