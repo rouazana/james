@@ -50,8 +50,13 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>var</directory>
+      <directory>src/main/app/var</directory>
       <outputDirectory>var</outputDirectory>
+    </fileSet>
+
+    <fileSet>
+      <directory>src/main/app/lib</directory>
+      <outputDirectory>lib</outputDirectory>
     </fileSet>
     
     <!-- include stuff from appassembler -->
