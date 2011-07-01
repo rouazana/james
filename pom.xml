@@ -456,5 +456,15 @@ END Tanuki Software License ============================================
       <scope>runtime</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.james</groupId>
+      <artifactId>apache-james-mailbox-memory</artifactId>
+<!--
+The declared scope at the parent pom level is test.
+-->
+      <scope>runtime</scope>      
+    </dependency>
+
+
   </dependencies>
 </project>
