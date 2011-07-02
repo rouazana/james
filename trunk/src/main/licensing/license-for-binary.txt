@@ -176,6 +176,11 @@
 
    END OF TERMS AND CONDITIONS
 
+This distribution contains the following resources by the Apache Software Foundation
+  Within the lib directory
+    licensed under the Apache License, Version 2 http://www.apache.org/licenses/LICENSE-2.0.txt (as above)
+      
+
 
 This distribution contains third party resources licensed as described below.
 
