@@ -48,18 +48,18 @@
     <!-- 
       Spring "Bean-Post-Processor" for LogEnabled interface.
      -->
-    <bean class="org.apache.james.container.spring.bean.postprocessor.LogEnabledBeanPostProcessor">
+    <bean class="org.apache.james.container.spring.lifecycle.LogEnabledBeanPostProcessor">
         <property name="logProvider" ref="logprovider" />
         <property name="order" value="0" />
     </bean>
-    <bean id="logprovider" class="org.apache.james.container.spring.provider.log.LogProviderImpl">
+    <bean id="logprovider" class="org.apache.james.container.spring.lifecycle.LogProviderImpl">
     </bean>
 
     <!-- 
       Configuration "Bean-Factory-Post-Processor"
         responsible to register beans from James specific configuration files
     -->
-    <bean class="org.apache.james.container.spring.bean.factorypostprocessor.ConfigurationBeanFactoryPostProcessor">
+    <bean class="org.apache.james.container.spring.lifecycle.ConfigurationBeanFactoryPostProcessor">
         <property name="beans">
           <map>
             <!-- User Repository-->
@@ -100,11 +100,11 @@
     <!-- 
       Spring "Bean-Post-Processor" for Configurable interface.
      -->
-    <bean class="org.apache.james.container.spring.bean.postprocessor.ConfigurableBeanPostProcessor">
+    <bean class="org.apache.james.container.spring.lifecycle.ConfigurableBeanPostProcessor">
         <property name="configurationProvider" ref="configurationprovider" />
         <property name="order" value="1" />
     </bean>
-    <bean id="configurationprovider" class="org.apache.james.container.spring.provider.configuration.ConfigurationProviderImpl">
+    <bean id="configurationprovider" class="org.apache.james.container.spring.lifeycle.ConfigurationProviderImpl">
         <property name="configurationMappings">
             <map>
                 <entry key="mailprocessor" value="mailetcontainer.processors"/>
@@ -386,7 +386,7 @@
       </property>
       <property name="assembler">
           <bean class="org.springframework.jmx.export.assembler.InterfaceBasedMBeanInfoAssembler">
-            <property name="managedInterfaces" value="org.apache.james.smtpserver.netty.SMTPServerMBean,org.apache.james.pop3server.netty.POP3ServerMBean,org.apache.james.imapserver.netty.IMAPServerMBean,org.apache.james.fetchmail.FetchSchedulerMBean,org.apache.james.domainlist.api.DomainListManagementMBean,org.apache.james.dnsservice.api.DNSServiceMBean,org.apache.james.rrt.api.RecipientRewriteTableManagementMBean,org.apache.james.user.api.UsersRepositoryManagementMBean,org.apache.james.adapter.mailbox.MailboxManagerManagementMBean,org.apache.james.container.spring.mailbox.MailboxCopierManagementMBean,org.apache.james.mailetcontainer.api.jmx.MailSpoolerMBean,org.apache.james.container.spring.provider.log.LogProviderManagementMBean"/>
+            <property name="managedInterfaces" value="org.apache.james.smtpserver.netty.SMTPServerMBean,org.apache.james.pop3server.netty.POP3ServerMBean,org.apache.james.imapserver.netty.IMAPServerMBean,org.apache.james.fetchmail.FetchSchedulerMBean,org.apache.james.domainlist.api.DomainListManagementMBean,org.apache.james.dnsservice.api.DNSServiceMBean,org.apache.james.rrt.api.RecipientRewriteTableManagementMBean,org.apache.james.user.api.UsersRepositoryManagementMBean,org.apache.james.adapter.mailbox.MailboxManagerManagementMBean,org.apache.james.container.spring.mailbox.MailboxCopierManagementMBean,org.apache.james.mailetcontainer.api.jmx.MailSpoolerMBean,org.apache.james.container.spring.lifecycle.LogProviderManagementMBean"/>
           </bean>
       </property>
     </bean>
