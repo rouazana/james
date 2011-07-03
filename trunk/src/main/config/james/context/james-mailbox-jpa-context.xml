@@ -22,26 +22,34 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
           http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd">
-
-    <!-- 
+    <!--
       Mailbox JPA
      -->
-          
+
+    <bean id="jpa-locker" class="org.apache.james.mailbox.store.JVMMailboxPathLocker"/>
+
     <bean id="jpa-mailboxmanager" class="org.apache.james.mailbox.jpa.openjpa.OpenJPAMailboxManager" init-method="init">
         <constructor-arg index="0" ref="jpa-sessionMapperFactory"/>
         <constructor-arg index="1" ref="authenticator"/>
-        <constructor-arg index="2" ref="jpa-uidProvider"/>
-        <constructor-arg index="3" ref="locker"/>
-        <constructor-arg index="4" value="${openjpa.streaming}"/>
+        <constructor-arg index="2" ref="jpa-locker"/>
+        <constructor-arg index="3" value="false"/>
     </bean>
     <bean id ="jpa-subscriptionManager" class="org.apache.james.mailbox.jpa.JPASubscriptionManager">
         <constructor-arg index="0" ref="jpa-sessionMapperFactory"/>
     </bean>
     <bean id="jpa-sessionMapperFactory" class="org.apache.james.mailbox.jpa.JPAMailboxSessionMapperFactory">
         <constructor-arg index="0" ref="entityManagerFactory"/>
+        <constructor-arg index="1" ref="jpa-uidProvider"/>
+        <constructor-arg index="2" ref="jpa-modSeqProvider"/>
     </bean>
-    <bean id="jpa-uidProvider" class="org.apache.james.mailbox.jpa.mail.JPACachingUidProvider">
-        <constructor-arg index="0" ref="entityManagerFactory"/>
+    <bean id="jpa-uidProvider" class="org.apache.james.mailbox.jpa.mail.JPAUidProvider">
+        <constructor-arg index="0" ref="jpa-locker"/>
+        <constructor-arg index="1" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean id="jpa-modSeqProvider" class="org.apache.james.mailbox.jpa.mail.JPAModSeqProvider">
+        <constructor-arg index="0" ref="jpa-locker"/>
+        <constructor-arg index="1" ref="entityManagerFactory"/>
     </bean>
 
 </beans>

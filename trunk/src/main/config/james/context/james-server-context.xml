@@ -59,7 +59,7 @@
       Configuration "Bean-Factory-Post-Processor"
         responsible to register beans from James specific configuration files
     -->
-    <bean class="org.apache.james.container.spring.lifecycle.ConfigurationBeanFactoryPostProcessor">
+    <bean class="org.apache.james.container.spring.bean.factorypostprocessor.ConfigurationBeanFactoryPostProcessor">
         <property name="beans">
           <map>
             <!-- User Repository-->
@@ -104,7 +104,7 @@
         <property name="configurationProvider" ref="configurationprovider" />
         <property name="order" value="1" />
     </bean>
-    <bean id="configurationprovider" class="org.apache.james.container.spring.lifeycle.ConfigurationProviderImpl">
+    <bean id="configurationprovider" class="org.apache.james.container.spring.lifecycle.ConfigurationProviderImpl">
         <property name="configurationMappings">
             <map>
                 <entry key="mailprocessor" value="mailetcontainer.processors"/>

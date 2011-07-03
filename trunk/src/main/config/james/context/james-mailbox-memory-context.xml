@@ -23,21 +23,20 @@
        xsi:schemaLocation="
           http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd">
 
-    <!-- 
+    <!--
       Mailbox Memory
      -->
     <!-- WARNING: Memory does not persist the mailbox. -->
     <!--          Information will be lost after server restart. -->
 
-    <bean id="memory-mailboxmanager" class="org.apache.james.mailbox.inmemory.InMemoryMailboxManager" init-method="init">
+    <bean id="memory-mailboxmanager" class="org.apache.james.mailbox.store.StoreMailboxManager" init-method="init">
         <constructor-arg index="0" ref="memory-sessionMapperFactory"/>
         <constructor-arg index="1" ref="authenticator"/>
-        <constructor-arg index="2" ref="memory-uidProvider"/>
     </bean>
-    <bean id ="memory-subscriptionManager" class="org.apache.james.mailbox.inmemory.InMemorySubscriptionManager">
+    <bean id ="memory-subscriptionManager" class="org.apache.james.mailbox.store.StoreSubscriptionManager">
         <constructor-arg index="0" ref="memory-sessionMapperFactory"/>
     </bean>
     <bean id="memory-sessionMapperFactory" class="org.apache.james.mailbox.inmemory.InMemoryMailboxSessionMapperFactory" />
-    <bean id="memory-uidProvider" class="org.apache.james.mailbox.inmemory.mail.InMemoryCachingUidProvider" />
+
 
 </beans>
