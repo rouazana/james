@@ -325,6 +325,7 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="jpaVendorAdapter" ref="vendorAdapter"/>
+        <property name="persistenceXmlLocation" value="file://conf/META-INF/persistence.xml"/>
     </bean>
     <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
         <property name="database" value="${vendorAdapter.database}"/>
