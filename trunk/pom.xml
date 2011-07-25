@@ -348,7 +348,6 @@ END Tanuki Software License ============================================
               <targetPath>WEB-INF/conf/</targetPath>
               <excludes>
                 <exclude>log4j.properties</exclude>
-                <exclude>META-INF/persistence.xml</exclude> 
                 <exclude>**/lib/**</exclude>
               </excludes>
             </resource>
@@ -358,7 +357,6 @@ END Tanuki Software License ============================================
               <targetPath>WEB-INF/classes/</targetPath>
               <includes>
                 <include>log4j.properties</include>
-                <include>META-INF/persistence.xml</include> 
               </includes>
             </resource>
             <resource>
