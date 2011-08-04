@@ -367,11 +367,11 @@ END Tanuki Software License ============================================
               
             </resource>
             <resource>
-              <!--
-              An inelegant and fagile way to add LICENSE, NOTICE and DEPENDENCIES.
-              Is there a better way? 
-              -->
-              <directory>target/maven-shared-archive-resources</directory>
+                <directory>src/main/licensing/war</directory>
+                <targetPath>META-INF</targetPath>
+                <excludes>
+                    <exclude>licensing.xml</exclude>
+                </excludes>
             </resource>
           </webResources>
         </configuration>
