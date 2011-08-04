@@ -133,13 +133,13 @@
   </fileSets>
   <files>
      <file>
-       <source>src/main/licensing/notice-for-binary.txt</source>
+       <source>src/main/licensing/app/notice-for-binary.txt</source>
        <outputDirectory>/</outputDirectory>
        <destName>NOTICE</destName>
        <lineEnding>crlf</lineEnding>
      </file>
      <file>
-       <source>src/main/licensing/license-for-binary.txt</source>
+       <source>src/main/licensing/app/license-for-binary.txt</source>
        <outputDirectory>/</outputDirectory>
        <destName>LICENSE</destName>
        <lineEnding>crlf</lineEnding>
