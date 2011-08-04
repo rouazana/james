@@ -373,6 +373,13 @@ END Tanuki Software License ============================================
                     <exclude>licensing.xml</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>.</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>README*</include>
+                </includes>
+            </resource>
           </webResources>
         </configuration>
         <executions>
