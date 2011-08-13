@@ -338,6 +338,11 @@ END Tanuki Software License ============================================
         </executions>
       </plugin>
       
+<!--
+The signing process excludes the artifact created by this plugin.
+The cause seems likely to be project type pom (not war).
+If this is the case then releasing the war would require
+reorganisation.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -345,7 +350,7 @@ END Tanuki Software License ============================================
           <webResources>
             <resource>
               <directory>src/main/config/james</directory>
-              <!-- override the destination directory for this resource -->
+              <!- - override the destination directory for this resource - ->
               <targetPath>WEB-INF/conf/</targetPath>
               <excludes>
                 <exclude>log4j.properties</exclude>
@@ -354,7 +359,7 @@ END Tanuki Software License ============================================
             </resource>
             <resource>
               <directory>src/main/config/james</directory>
-              <!-- override the destination directory for this resource -->
+              <!- - override the destination directory for this resource - ->
               <targetPath>WEB-INF/classes/</targetPath>
               <includes>
                 <include>log4j.properties</include>
@@ -363,7 +368,7 @@ END Tanuki Software License ============================================
             </resource>
             <resource>
               <directory>src/main/config/war</directory>
-              <!-- override the destination directory for this resource -->
+              <!- - override the destination directory for this resource - ->
               <targetPath>WEB-INF/conf/</targetPath>
               
             </resource>
@@ -393,7 +398,7 @@ END Tanuki Software License ============================================
           </execution>
         </executions>
       </plugin>
-      
+-->  
       
       <!--  be sure to start up james before run it -->
       <!--  
