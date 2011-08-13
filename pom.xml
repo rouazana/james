@@ -33,6 +33,13 @@
   <properties>
   </properties> 
 
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/james/app</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app</developerConnection>
+    <tag>branches/3_0_beta3</tag>
+    <url>http://svn.apache.org/repos/asf/james/app</url>
+  </scm>
+
 
   <build>
     <plugins>
