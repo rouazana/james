@@ -34,9 +34,10 @@
   </properties> 
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/james/app</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app</developerConnection>
-    <url>http://svn.apache.org/repos/asf/james/app</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/james/app/branches/3_0_beta3</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app/branches/3_0_beta3</developerConnection>
+    <url>http://svn.apache.org/repos/asf/james/app/branches/3_0_beta3</url>
+    <tag>branches/3_0_beta3</tag>
   </scm>
 
 
