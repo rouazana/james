@@ -636,6 +636,11 @@ END Tanuki Software License ============================================
     </dependency>
     <dependency>
       <groupId>org.apache.james</groupId>
+      <artifactId>apache-james-mailbox-spring</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.james</groupId>
       <artifactId>apache-james-mailbox-jcr</artifactId>
       <scope>runtime</scope>
     </dependency>
