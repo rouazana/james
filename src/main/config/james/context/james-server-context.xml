@@ -290,11 +290,7 @@
     <bean class="org.apache.james.container.spring.bean.factorypostprocessor.MailboxConfigurationBeanFactoryPostProcessor"/>
      
     <bean id="locker" class="org.apache.james.mailbox.store.JVMMailboxPathLocker"/>
-    <bean id="authenticator" class="org.apache.james.adapter.mailbox.store.UserRepositoryAuthenticator"/>
-    <import resource="james-mailbox-jpa-context.xml" />
-    <import resource="james-mailbox-jcr-context.xml" />
-    <import resource="james-mailbox-maildir-context.xml" />
-    <import resource="james-mailbox-memory-context.xml" />
+    <import resource="classpath:META-INF/org/apache/james/spring-mailbox.xml" />
 
     <!-- 
       Mailbox Copier
@@ -314,7 +310,7 @@
           
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name ="location" value="file://conf/database.properties"/>
+        <property name ="location" value="classpath:META-INF/org/apache/james/database.properties"/>
     </bean>
     <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${database.driverClassName}" />
@@ -332,7 +328,7 @@
         <!-- set this to true for debugging purposes -->
         <property name="showSql" value="false"/>
     </bean>
-
+    
     <!-- 
     ===========================================================================
        JMX
