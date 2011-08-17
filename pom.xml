@@ -612,6 +612,7 @@ END Tanuki Software License ============================================
       <artifactId>james-server-mailets</artifactId>
       <scope>runtime</scope>
     </dependency>
+<!-- 
     <dependency>
       <groupId>org.apache.jackrabbit</groupId>
       <artifactId>jackrabbit-core</artifactId>
@@ -623,7 +624,7 @@ END Tanuki Software License ============================================
         </exclusion>
       </exclusions> 
     </dependency>    
-
+-->
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
