@@ -666,6 +666,11 @@ END Tanuki Software License ============================================
     </dependency>
     <dependency>
       <groupId>org.apache.james</groupId>
+      <artifactId>james-server-hbase</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.james</groupId>
       <artifactId>james-server-jdbc</artifactId>
       <scope>runtime</scope>
     </dependency>
