@@ -349,6 +349,7 @@ The signing process excludes the artifact created by this plugin.
 The cause seems likely to be project type pom (not war).
 If this is the case then releasing the war would require
 reorganisation.
+-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -356,7 +357,7 @@ reorganisation.
           <webResources>
             <resource>
               <directory>src/main/config/james</directory>
-              <!- - override the destination directory for this resource - ->
+              <!-- override the destination directory for this resource -->
               <targetPath>WEB-INF/conf/</targetPath>
               <excludes>
                 <exclude>log4j.properties</exclude>
@@ -365,7 +366,7 @@ reorganisation.
             </resource>
             <resource>
               <directory>src/main/config/james</directory>
-              <!- - override the destination directory for this resource - ->
+              <!-- override the destination directory for this resource -->
               <targetPath>WEB-INF/classes/</targetPath>
               <includes>
                 <include>log4j.properties</include> 
@@ -373,7 +374,7 @@ reorganisation.
             </resource>
             <resource>
               <directory>src/main/config/war</directory>
-              <!- - override the destination directory for this resource - ->
+              <!-- override the destination directory for this resource -->
               <targetPath>WEB-INF/conf/</targetPath>
               
             </resource>
@@ -402,8 +403,7 @@ reorganisation.
             </goals>
           </execution>
         </executions>
-      </plugin>
--->  
+      </plugin>  
       
       <!--  be sure to start up james before run it -->
       <!--  
