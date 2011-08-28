@@ -27,7 +27,7 @@
   <groupId>org.apache.james</groupId>
   <artifactId>apache-james</artifactId>
   <version>3.0-beta4-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <packaging>war</packaging>
   <name>Apache James Server</name>
   <description>An advanced email server.</description>
   <properties>
