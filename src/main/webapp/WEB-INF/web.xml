@@ -18,7 +18,7 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
-      /WEB-INF/conf/context/james-server-context.xml
+      /WEB-INF/conf/META-INF/org/apache/james/spring-server.xml
     </param-value>
   </context-param>
   <context-param>
