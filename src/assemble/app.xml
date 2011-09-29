@@ -88,7 +88,7 @@
       <directory>target/appassembler/bin</directory>
       <outputDirectory>bin</outputDirectory>
       <directoryMode>0755</directoryMode>
-      <fileMode>0644</fileMode>
+      <fileMode>0755</fileMode>
       <lineEnding>unix</lineEnding>
       <includes>
         <include>*.sh</include>
@@ -109,7 +109,7 @@
       <directory>src/main/app/bin/</directory>
       <outputDirectory>bin</outputDirectory>
       <directoryMode>0755</directoryMode>
-      <fileMode>0644</fileMode>
+      <fileMode>0755</fileMode>
       <lineEnding>unix</lineEnding>
       <includes>
         <include>setenv.sh</include>
