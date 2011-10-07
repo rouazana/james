@@ -20,14 +20,18 @@
 
 <!-- See http://james.apache.org/server/3/config.html for usage -->
 
-<lmtpserver enabled="false">
-  <bind>127.0.0.1:24</bind>
-  <connectionBacklog>200</connectionBacklog>
-  <connectiontimeout>1200</connectiontimeout>
-  <connectionLimit> 0 </connectionLimit>
-  <connectionLimitPerIP> 0 </connectionLimitPerIP>
-  <maxmessagesize>0</maxmessagesize>
-  <handlerchain enableJmx="true">
+<lmtpservers>
+  <lmtpserver enabled="false">
+    <jmxName>lmtpserver</jmxName>
+    <bind>127.0.0.1:24</bind>
+    <connectionBacklog>200</connectionBacklog>
+    <connectiontimeout>1200</connectiontimeout>
+    <connectionLimit> 0 </connectionLimit>
+    <connectionLimitPerIP> 0 </connectionLimitPerIP>
+    <maxmessagesize>0</maxmessagesize>
+    <handlerchain enableJmx="true">
       <handler class="org.apache.james.lmtpserver.CoreCmdHandlerLoader"/>
-  </handlerchain>
-</lmtpserver>
+    </handlerchain>
+  </lmtpserver>
+</lmtpservers>
+
