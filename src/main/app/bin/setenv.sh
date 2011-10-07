@@ -16,5 +16,5 @@
 # ----------------------------------------------------------------------------
 #
 # Add every needed extra jar to this
-CLASSPATH_PREFIX=
+CLASSPATH_PREFIX=../conf/lib/*
 export CLASSPATH_PREFIX

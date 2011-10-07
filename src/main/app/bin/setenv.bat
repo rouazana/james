@@ -16,4 +16,4 @@
 @REM
 
 @REM Add every needed extra jar to this 
-set CLASSPATH_PREFIX=
+set CLASSPATH_PREFIX=../conf/lib/*
