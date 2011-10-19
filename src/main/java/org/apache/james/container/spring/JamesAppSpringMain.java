@@ -29,16 +29,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Bootstraps James using a Spring container.
  */
-public class Main implements Daemon {
+public class JamesAppSpringMain implements Daemon {
 
-    private static Logger log = LoggerFactory.getLogger(Main.class.getName());
+    private static Logger log = LoggerFactory.getLogger(JamesAppSpringMain.class.getName());
     private JamesServerApplicationContext context;
 
     public static void main(String[] args) throws Exception {
 
         long start = Calendar.getInstance().getTimeInMillis();
 
-        Main main = new Main();
+        JamesAppSpringMain main = new JamesAppSpringMain();
         main.init(null);
 
         long end = Calendar.getInstance().getTimeInMillis();
