@@ -320,7 +320,7 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="jpaVendorAdapter" ref="vendorAdapter"/>
-        <property name="persistenceXmlLocation" value="file://conf/META-INF/persistence.xml"/>
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
     </bean>
     <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
         <property name="database" value="${vendorAdapter.database}"/>
@@ -339,7 +339,7 @@
      -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name="location" value="file://conf/jmx.properties"/>
+        <property name="location" value="classpath:jmx.properties"/>
     </bean>
     <bean id="mbeanserver" class="org.springframework.jmx.support.MBeanServerFactoryBean" >
         <property name="locateExistingServerIfPossible" value="true"/>
