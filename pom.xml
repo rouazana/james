@@ -351,7 +351,7 @@
                     </platforms>
                     <programs>
                         <program>
-                            <mainClass>org.apache.james.container.spring.Main</mainClass>
+                            <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
                             <!-- call it only run because appassemble will add .bat by default on windows -->
                             <name>run</name>
                             <!-- Only generate windows bat script for this application -->
@@ -360,7 +360,7 @@
                             </platforms>
                         </program>
                         <program>
-                            <mainClass>org.apache.james.container.spring.Main</mainClass>
+                            <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
                             <name>run.sh</name>
                             <!-- Only generate unix shell script for this application -->
                             <platforms>
@@ -390,7 +390,7 @@
                     <daemons>
                         <daemon>
                             <id>james</id>
-                            <mainClass>org.apache.james.container.spring.Main</mainClass>
+                            <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
                             <commandLineArguments>
                                 <commandLineArgument>start</commandLineArgument>
                             </commandLineArguments>
