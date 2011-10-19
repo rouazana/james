@@ -663,7 +663,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>src/main/config/james</directory>
+                            <directory>src/main/resources</directory>
                             <!-- override the destination directory for this resource -->
                             <targetPath>WEB-INF/conf/</targetPath>
                             <excludes>
@@ -672,7 +672,7 @@
                             </excludes>
                         </resource>
                         <resource>
-                            <directory>src/main/config/james</directory>
+                            <directory>src/main/resources</directory>
                             <!-- override the destination directory for this resource -->
                             <targetPath>WEB-INF/classes/</targetPath>
                             <includes>

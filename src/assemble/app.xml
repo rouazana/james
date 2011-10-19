@@ -36,7 +36,7 @@
     </fileSet>
     <!-- include configs -->
     <fileSet>
-      <directory>src/main/config/james</directory>
+      <directory>src/main/resources</directory>
       <directoryMode>0755</directoryMode>
       <outputDirectory>conf</outputDirectory>
       <!-- set some sane security defaults for config files -->
