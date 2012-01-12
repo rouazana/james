@@ -260,8 +260,6 @@
      -->
     <bean id="pop3server"  class="org.apache.james.pop3server.netty.POP3ServerFactory"/>
 
-    <bean id="mailboxfactory" class="org.apache.james.pop3server.mailbox.JamesMailboxFactory" />
-
     <!-- 
       IMAP Server
      -->
