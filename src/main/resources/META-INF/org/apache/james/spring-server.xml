@@ -29,7 +29,7 @@
 
     <!-- 
     ===========================================================================
-       Annotation - Bean Post-Processors
+       Spring Wiring for James Server: Annotation, Bean Post-Processors...
     ===========================================================================
     -->
           
@@ -121,17 +121,17 @@
 
     <!-- 
     ===========================================================================
-       ActiveMQ Queue and Camel
+       Queues
     ===========================================================================
     -->
           
     <!-- 
-      James Mail Queue Factory
+      Mail Queue Factory
      -->
     <bean id="mailqueuefactory" class="org.apache.james.queue.activemq.ActiveMQMailQueueFactory" depends-on="broker"/>
 
     <!-- 
-      ActiveMQ Broker, Connections, Blob
+      ActiveMQ: Broker, Connections, BlobTransferPolicy...
      -->
     <amq:broker useJmx="true" persistent="true" brokerName="james" dataDirectory="filesystem=file://var/store/activemq/brokers" useShutdownHook="false" schedulerSupport="false" id="broker">
         <amq:destinationPolicy>
@@ -178,14 +178,6 @@
     </bean>
 
     <!-- 
-      Camel Context
-     -->
-    <camel:camelContext id="jamesCamelContext" trace="false" >
-        <camel:jmxAgent id="agent" disabled="false" createConnector="false" serviceUrlPath="/jmxrmi/jamescamel"/>
-        <camel:template id="producerTemplate"/>   
-    </camel:camelContext>
-
-    <!-- 
     ===========================================================================
        Mailet Container
     ===========================================================================
@@ -197,9 +189,9 @@
     <bean id="mailprocessor" name="processorRoute" class="org.apache.james.mailetcontainer.impl.camel.CamelCompositeProcessor"/>
   
     <!-- 
-      mailcontext bean must be defined after mailProcessor 
-      otherwise LogEnabled injection via LogEnabledBeanPostProcessor will not occur before 
-      it is used - Seems like a Spring bug.
+      !!! mailetcontext bean must be defined after mailProcessor 
+          otherwise LogEnabled injection via LogEnabledBeanPostProcessor will not occur before 
+          it is used - Seems like a Spring bug...
     -->
     <bean id="mailetcontext" class="org.apache.james.mailetcontainer.impl.JamesMailetContext"/>
     <bean id="mailspooler" class="org.apache.james.mailetcontainer.impl.JamesMailSpooler"/>
@@ -209,6 +201,14 @@
      -->
     <bean id="mailetloader" class="org.apache.james.container.spring.bean.factory.mailetcontainer.MailetLoaderBeanFactory" />
     <bean id="matcherloader" class="org.apache.james.container.spring.bean.factory.mailetcontainer.MatcherLoaderBeanFactory" />
+
+    <!-- 
+      Camel Context
+     -->
+    <camel:camelContext id="jamesCamelContext" trace="false" >
+        <camel:jmxAgent id="agent" disabled="false" createConnector="false" serviceUrlPath="/jmxrmi/jamescamel"/>
+        <camel:template id="producerTemplate"/>   
+    </camel:camelContext>
 
     <!-- 
     ===========================================================================
@@ -271,7 +271,7 @@
         <constructor-arg index="0" ref="mailboxmanager"/>
         <constructor-arg index="1" ref="subscriptionManager"/>
     </bean>
-    <bean id="imapDecoder" factory-bean="imapDecoderFactory"  factory-method="buildImapDecoder"/>
+    <bean id="imapDecoder" factory-bean="imapDecoderFactory" factory-method="buildImapDecoder"/>
     <bean id="imapDecoderFactory" class="org.apache.james.imap.main.DefaultImapDecoderFactory"/>
     <bean id="imapEncoder" factory-bean="imapEncoderFactory"  factory-method="buildImapEncoder"/>
     <bean id="imapEncoderFactory" class="org.apache.james.imap.encode.main.DefaultImapEncoderFactory"/>
@@ -296,7 +296,7 @@
     <bean id="mailboxcopier" class="org.apache.james.mailbox.copier.MailboxCopierImpl"/>
           
     <!-- 
-      Mailbox Import
+      Mailbox Importer
      -->
     <bean id="james23importer" class="org.apache.james.container.spring.tool.James23Importer"/>
           
