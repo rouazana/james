@@ -207,28 +207,28 @@
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-ldap</artifactId>
+            <artifactId>james-server-data-ldap</artifactId>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-smtpserver</artifactId>
+            <artifactId>james-server-protocols-smtp</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-imapserver</artifactId>
+            <artifactId>james-server-protocols-imap4</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-lmtpserver</artifactId>
+            <artifactId>james-server-protocols-lmtp</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-pop3server</artifactId>
+            <artifactId>james-server-protocols-pop3</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -301,22 +301,22 @@
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-file</artifactId>
+            <artifactId>james-server-data-file</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-jpa</artifactId>
+            <artifactId>james-server-data-jpa</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-jdbc</artifactId>
+            <artifactId>james-server-data-jdbc</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-hbase</artifactId>
+            <artifactId>james-server-data-hbase</artifactId>
             <scope>runtime</scope>
             <exclusions>
                 <exclusion>
@@ -327,7 +327,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>james-server-jcr</artifactId>
+            <artifactId>james-server-data-jcr</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
