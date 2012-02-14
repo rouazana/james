@@ -57,6 +57,11 @@
       <outputDirectory>var</outputDirectory>
       <directoryMode>0755</directoryMode>
     </fileSet>
+    <fileSet>
+      <directory>src/main/app/sieve</directory>
+      <outputDirectory>var</outputDirectory>
+      <directoryMode>0755</directoryMode>
+    </fileSet>
 
     <fileSet>
       <directory>src/main/app/lib</directory>
