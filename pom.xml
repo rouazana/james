@@ -167,10 +167,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>commons-daemon</groupId>
-            <artifactId>commons-daemon</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.james</groupId>
             <artifactId>james-server-mailetcontainer-camel</artifactId>
             <scope>runtime</scope>
@@ -781,4 +777,76 @@
         </plugins>
 
     </build>
+    
+    <profiles>
+        <profile>
+            <id>make-deb</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/debian/control</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>control*</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/control</targetPath>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <artifactId>jdeb</artifactId>
+                        <groupId>org.vafer</groupId>
+                        <version>0.9</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jdeb</goal>
+                                </goals>
+                                <configuration>
+                                    <deb>${project.build.directory}/${project.artifactId}_${project.version}_all.deb</deb>
+                                    <dataSet>
+                                        <data>
+                                            <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                                            <type>file</type>
+                                            <mapper>
+                                                <type>file</type>
+                                                <prefix>/</prefix>
+                                            </mapper>
+                                            <mapper>
+                                                <type>perm</type>
+                                                <prefix>/usr/share/james-server</prefix>
+                                                <user>root</user>
+                                                <group>root</group>
+                                            </mapper>
+                                        </data>
+                                        <data>
+                                            <src>${project.basedir}/src/main/app</src>
+                                            <type>directory</type>
+                                            <includes>*</includes>
+                                            <excludes>**/.svn</excludes>
+                                            <mapper>
+                                                <type>directory</type>
+                                                <prefix>/usr/share/james-server</prefix>
+                                            </mapper>
+                                            <mapper>
+                                                <type>perm</type>
+                                                <prefix>/usr/share/james-server</prefix>
+                                                <user>root</user>
+                                                <group>root</group>
+                                            </mapper>
+                                        </data>
+                                    </dataSet>
+                                    <controlDir>${project.build.directory}/control</controlDir>
+                                    <changesIn>${project.basedir}README.txt</changesIn>
+                                    <changesOut>${project.build.directory}/${project.build.finalName}.changes</changesOut>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
 </project>
