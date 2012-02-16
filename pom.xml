@@ -35,7 +35,7 @@
     <version>3.0-beta4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Apache James Server</name>
+    <name>Apache James Server App</name>
     <description>An advanced email server.</description>
 
     <scm>
@@ -60,7 +60,8 @@
         <javamail.system-property9>-Dmail.mime.decodeparameters=true</javamail.system-property9>
         <javamail.system-property10>-Dmail.mime.address.strict=false</javamail.system-property10>
         <javamail.system-properties>${javamail.system-property1} ${javamail.system-property2} ${javamail.system-property3} ${javamail.system-property4} ${javamail.system-property5}
-            ${javamail.system-property6} ${javamail.system-property7} ${javamail.system-property8} ${javamail.system-property9} ${javamail.system-property10}</javamail.system-properties>
+            ${javamail.system-property6} ${javamail.system-property7} ${javamail.system-property8} ${javamail.system-property9} ${javamail.system-property10}
+        </javamail.system-properties>
 
         <!-- JMX system properties -->
         <!-- For more details see -->
@@ -74,6 +75,8 @@
         <!-- Use filesystem to copy message by default -->
         <james.system-property1>-Djames.message.usememorycopy=false</james.system-property1>
         <james.system-properties>${james.system-property1}</james.system-properties>
+        <!-- this name is used for James's folders on Debian systems and james user -->
+        <james.debian>james</james.debian>
     </properties>
 
     <dependencies>
@@ -782,6 +785,7 @@
         <profile>
             <id>make-deb</id>
             <build>
+                <!-- copy resources and filter properties -->
                 <resources>
                     <resource>
                         <directory>src/debian/control</directory>
@@ -789,7 +793,15 @@
                         <includes>
                             <include>control*</include>
                         </includes>
-                        <targetPath>${project.build.directory}/control</targetPath>
+                        <targetPath>${project.build.directory}/debian/control</targetPath>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                            <!-- override the destination directory for this resource -->
+                        <targetPath>${project.build.directory}/debian/resources</targetPath>
+                        <includes>
+                            <include>**/*.*</include>
+                        </includes>
                     </resource>
                 </resources>
                 <plugins>
@@ -815,11 +827,12 @@
                                             </mapper>
                                             <mapper>
                                                 <type>perm</type>
-                                                <prefix>/usr/share/james-server</prefix>
+                                                <prefix>/usr/share/${james.debian}</prefix>
                                                 <user>root</user>
                                                 <group>root</group>
                                             </mapper>
                                         </data>
+                                        <!-- all files -->
                                         <data>
                                             <src>${project.basedir}/src/main/app</src>
                                             <type>directory</type>
@@ -827,17 +840,51 @@
                                             <excludes>**/.svn</excludes>
                                             <mapper>
                                                 <type>directory</type>
-                                                <prefix>/usr/share/james-server</prefix>
+                                                <prefix>/usr/share/${james.debian}</prefix>
                                             </mapper>
                                             <mapper>
                                                 <type>perm</type>
-                                                <prefix>/usr/share/james-server</prefix>
+                                                <prefix>/usr/share/${james.debian}</prefix>
                                                 <user>root</user>
                                                 <group>root</group>
                                             </mapper>
                                         </data>
+                                        <!-- conf files - in the future: move them to /usr/share/james/conf 
+                                        and provide sym-links to them as needed by lintian -->
+                                        <data>
+                                            <src>${project.build.directory}/debian/resources</src>
+                                            <type>directory</type>
+                                            <includes>*</includes>
+                                            <excludes>**/.svn</excludes>
+                                            <mapper>
+                                                <type>directory</type>
+                                                <prefix>/etc/${james.debian}</prefix>
+                                            </mapper>
+                                            <mapper>
+                                                <type>perm</type>
+                                                <prefix>/etc/${james.debian}</prefix>
+                                                <user>root</user>
+                                                <group>root</group>
+                                            </mapper>
+                                        </data>
+                                        <!-- package documentation files (realease info, install, no javadoc) -->
+                                        <data>
+                                            <src>${project.basedir}</src>
+                                            <type>directory</type>
+                                            <includes>LICENSE,README.txt,README.crypto,NOTICE</includes>
+                                            <mapper>
+                                                <type>directory</type>
+                                                <prefix>/usr/share/doc/${james.debian}</prefix>
+                                            </mapper>
+                                            <mapper>
+                                                <type>perm</type>
+                                                <prefix>/usr/share/doc/${james.debian}</prefix>
+                                                <user>root</user>
+                                                <group>root</group>
+                                            </mapper>
+                                        </data>                                        
                                     </dataSet>
-                                    <controlDir>${project.build.directory}/control</controlDir>
+                                    <controlDir>${project.build.directory}/debian/control</controlDir>
                                     <changesIn>${project.basedir}README.txt</changesIn>
                                     <changesOut>${project.build.directory}/${project.build.finalName}.changes</changesOut>
                                 </configuration>
