@@ -26,7 +26,7 @@
     <persistence-unit name="James" transaction-type="RESOURCE_LOCAL">
     
     <!-- Use the mappings to overwriting the annotations defined in the JPA domain classes -->
-    <mapping-file>META-INF/jpa-mappings.xml</mapping-file>
+    <mapping-file>META-INF/jpa-mappings-template.xml</mapping-file>
 
         <!-- Mailbox stuff-->
         <class>org.apache.james.mailbox.jpa.mail.model.JPAHeader</class>
