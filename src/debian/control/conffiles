@@ -3,7 +3,8 @@
 /etc/${project.artifactId}/fetchmail.conf
 /etc/${project.artifactId}/hbase-site.conf
 /etc/${project.artifactId}/imapserver.conf
-/etc/${project.artifactId}/jcr-repository.conf
+/etc/${project.artifactId}/james-database.properties
+/etc/${project.artifactId}/jcr-repository.xml
 /etc/${project.artifactId}/jmx.properties
 /etc/${project.artifactId}/lmtpserver.conf
 /etc/${project.artifactId}/log4j.properties
