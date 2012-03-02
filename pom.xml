@@ -17,10 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,20 +25,20 @@
       <groupId>org.apache.james</groupId>
 	    <artifactId>james-server</artifactId>
 	    <version>3.0-beta4</version>
-        <relativePath></relativePath>
+        <relativePath />
     </parent>
 
     <artifactId>apache-james</artifactId>
-    <version>3.0-beta4-SNAPSHOT</version>
+    <version>3.0-beta4</version>
     <packaging>jar</packaging>
 
     <name>Apache James Server App</name>
     <description>An advanced email server</description>
 
     <scm>
-	    <connection>scm:svn:http://svn.apache.org/repos/asf/james/app/trunk</connection>
-	    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app/trunk</developerConnection>
-	    <url>http://svn.apache.org/repos/asf/james/app/trunk</url>
+	    <connection>scm:svn:http://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</connection>
+	    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</developerConnection>
+	    <url>http://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</url>
     </scm>
 
     <properties>
@@ -666,40 +663,20 @@
                                 <!-- this is only needed because windows freak out on long cmd lines, so we strip of the absolute path
                                     from the lib dir to make windows happy again
                                 -->
-				<replace
-				    file="${project.build.directory}/appassembler/bin/run.bat"
-				    token="%BASEDIR%\lib"
-				    value="..\lib" />
-				<replace
-				    file="${project.build.directory}/appassembler/bin/run.sh"
-				    token="setenv"
-				    value="setenv.sh" />
+				<replace file="${project.build.directory}/appassembler/bin/run.bat" token="%BASEDIR%\lib" value="..\lib" />
+				<replace file="${project.build.directory}/appassembler/bin/run.sh" token="setenv" value="setenv.sh" />
 
                                 <!-- this is needed because appassembler is not really smart on some settings -->
-				<replace
-				    file="${project.build.directory}/appassembler/jsw/james/conf/wrapper.conf"
-				    token="lib/wrapper.jar"
-				    value="%REPO_DIR%/wrapper.jar" />
-				<replace
-				    file="${project.build.directory}/appassembler/jsw/james/bin/james"
-				    token="logs"
-				    value="var" />
+				<replace file="${project.build.directory}/appassembler/jsw/james/conf/wrapper.conf" token="lib/wrapper.jar" value="%REPO_DIR%/wrapper.jar" />
+				<replace file="${project.build.directory}/appassembler/jsw/james/bin/james" token="logs" value="var" />
 
                                 <!-- copy the linux wrapper-linux-x86-32 to wrapper, so use it as default if no matching wrapper was found -->
-				<copy
-				    file="${project.build.directory}/appassembler/jsw/james/bin/wrapper-linux-x86-32"
-				    tofile="${project.build.directory}/appassembler/jsw/james/bin/wrapper" />
+				<copy file="${project.build.directory}/appassembler/jsw/james/bin/wrapper-linux-x86-32" tofile="${project.build.directory}/appassembler/jsw/james/bin/wrapper" />
                                 <!-- this is only needed because windows freak out on long cmd lines, so we strip of the absolute path
                                     from the lib dir to make windows happy again
                                 -->
-				<replace
-				    file="${project.build.directory}/appassembler/bin/james-cli.bat"
-				    token="%BASEDIR%\lib"
-				    value="..\lib" />
-				<replace
-				    file="${project.build.directory}/appassembler/bin/james-cli.sh"
-				    token="setenv"
-				    value="setenv.sh" />
+				<replace file="${project.build.directory}/appassembler/bin/james-cli.bat" token="%BASEDIR%\lib" value="..\lib" />
+				<replace file="${project.build.directory}/appassembler/bin/james-cli.sh" token="setenv" value="setenv.sh" />
 			    </tasks>
 
 			</configuration>
