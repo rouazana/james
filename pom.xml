@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>apache-james</artifactId>
-    <version>3.0-beta5-SNAPSHOT</version>
+    <version>3.0-beta4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Apache James Server App</name>
@@ -43,7 +43,7 @@
 
     <properties>
     
-        <james.server.version>${project.parent.version}</james.server.version>
+        <james.server.version>3.0-beta4</james.server.version>
 
         <!-- For more details see -->
         <!-- http://java.sun.com/products/javamail/javadocs/javax/mail/internet/package-summary.html -->
@@ -383,6 +383,10 @@
 		<exclusion>
 		    <groupId>org.jruby</groupId>
 		    <artifactId>jruby-complete</artifactId>
+		</exclusion>
+		<exclusion>
+		  <artifactId>hsqldb</artifactId>
+		  <groupId>hsqldb</groupId>
 		</exclusion>
 	    </exclusions>
         <version>${james.server.version}</version>
