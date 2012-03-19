@@ -341,6 +341,16 @@
         <groupId>org.apache.james</groupId>
         <artifactId>apache-james-mailbox-spring</artifactId>
         <scope>runtime</scope>
+        <exclusions>
+          <exclusion>
+            <artifactId>hbase</artifactId>
+            <groupId>org.apache.hbase</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>hadoop-core</artifactId>
+            <groupId>org.apache.hadoop</groupId>
+          </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
         <groupId>org.apache.james</groupId>
@@ -387,6 +397,14 @@
         <exclusion>
           <artifactId>hsqldb</artifactId>
           <groupId>hsqldb</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hbase</artifactId>
+          <groupId>org.apache.hbase</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hadoop-core</artifactId>
+          <groupId>org.apache.hadoop</groupId>
         </exclusion>
         </exclusions>
         <version>${james.server.version}</version>
