@@ -94,17 +94,17 @@
 
     
   For 
-    spring-aop-3.0.5.RELEASE.jar
-    spring-asm-3.0.5.RELEASE.jar
-    spring-beans-3.0.5.RELEASE.jar
-    spring-context-3.0.5.RELEASE.jar
-    spring-core-3.0.5.RELEASE.jar
-    spring-expression-3.0.5.RELEASE.jar
-    spring-jdbc-3.0.5.RELEASE.jar
-    spring-jms-3.0.5.RELEASE.jar
-    spring-orm-3.0.5.RELEASE.jar
-    spring-tx-3.0.5.RELEASE.jar
-    spring-web-3.0.5.RELEASE.jar
+    spring-aop-3.1.RELEASE.jar
+    spring-asm-3.1.RELEASE.jar
+    spring-beans-3.1.RELEASE.jar
+    spring-context-3.1.RELEASE.jar
+    spring-core-3.1.RELEASE.jar
+    spring-expression-3.1.RELEASE.jar
+    spring-jdbc-3.1.RELEASE.jar
+    spring-jms-3.1.RELEASE.jar
+    spring-orm-3.1.RELEASE.jar
+    spring-tx-3.1.RELEASE.jar
+    spring-web-3.1.RELEASE.jar
   
 
         == NOTICE file corresponding to section 4 d of the Apache License,  ==

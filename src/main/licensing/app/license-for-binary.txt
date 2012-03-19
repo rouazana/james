@@ -327,17 +327,17 @@ Within the lib directory
         from The JASYPT team  http://www.jasypt.org 
             jasypt-1.6.jar
         from The Spring Framework Project  http://www.springframework.org 
-            spring-aop-3.0.5.RELEASE.jar
-            spring-asm-3.0.5.RELEASE.jar
-            spring-beans-3.0.5.RELEASE.jar
-            spring-context-3.0.5.RELEASE.jar
-            spring-core-3.0.5.RELEASE.jar
-            spring-expression-3.0.5.RELEASE.jar
-            spring-jdbc-3.0.5.RELEASE.jar
-            spring-jms-3.0.5.RELEASE.jar
-            spring-orm-3.0.5.RELEASE.jar
-            spring-tx-3.0.5.RELEASE.jar
-            spring-web-3.0.5.RELEASE.jar
+            spring-aop-3.1.RELEASE.jar
+            spring-asm-3.1.RELEASE.jar
+            spring-beans-3.1.RELEASE.jar
+            spring-context-3.1.RELEASE.jar
+            spring-core-3.1.RELEASE.jar
+            spring-expression-3.1.RELEASE.jar
+            spring-jdbc-3.1.RELEASE.jar
+            spring-jms-3.1.RELEASE.jar
+            spring-orm-3.1.RELEASE.jar
+            spring-tx-3.1.RELEASE.jar
+            spring-web-3.1.RELEASE.jar
 
     licensed under the BSD (3-clause) http://www.opensource.org/licenses/BSD-3-Clause  (as follows)
 
