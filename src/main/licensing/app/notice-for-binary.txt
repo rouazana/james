@@ -128,25 +128,3 @@
         software without prior written permission. For written permission,
         please contact enquiries@springsource.com.
 
-
-   This product includes SLF4J software developed by QOS.ch. 
-   Copyright 2004-2008 QOS.ch. All rights reserved.
-
-
-   This product includes activation library used by javamail,
-   jersey (core, json and server) libraries, JAXB (API and Impl),
-   JSR311 api, javax.servlet package and javax.jsp used by Jetty.
-   Copyright Oracle Corporation. It is distributed under the 
-   Common Development and Distribution License.
-
-
-   This product includes Eclipse JDT core library distributed
-   Copyright Eclipse Foundation distributed under the Eclipse
-   Public License EPL1.
-   See http://www.apache.org/legal/resolved.html#category-b.
-
-
-   This product includes HSQL library 
-   Copyright The HSQL Development Group distributed under the HSQL License.
-   See http://hsqldb.org/web/hsqlLicense.html.
- 
