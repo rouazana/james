@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>apache-james</artifactId>
-    <version>3.0-beta5-SNAPSHOT</version>
+    <version>3.0-beta4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Apache James Server App</name>
