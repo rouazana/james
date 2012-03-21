@@ -15,6 +15,13 @@
  * limitations under the License.
  */
 
+<!--
+   This template file can be used as example for James Server configuration
+   DO NOT USE IT AS SUCH AND ADAPT IT TO YOUR NEEDS
+-->
+ 
+<!-- See http://james.apache.org/server/3/config.html for usage -->
+
 <jamesMailbox = 'http://james.apache.org/imap/jcr/'>
 
 [jamesMailbox:user] > mix:created

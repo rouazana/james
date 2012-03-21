@@ -23,8 +23,8 @@
 
     <parent>
       <groupId>org.apache.james</groupId>
-	    <artifactId>james-server</artifactId>
-	    <version>3.0-beta4</version>
+        <artifactId>james-server</artifactId>
+        <version>3.0-beta4</version>
         <relativePath />
     </parent>
 
@@ -36,14 +36,14 @@
     <description>An advanced email server</description>
 
     <scm>
-	    <connection>scm:svn:http://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</connection>
-	    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</developerConnection>
-	    <url>http://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</developerConnection>
+        <url>http://svn.apache.org/repos/asf/james/app/tags/apache-james-3.0-beta4</url>
     </scm>
 
     <properties>
     
-        <james.server.version>${project.parent.version}</james.server.version>
+        <james.server.version>3.0-beta4</james.server.version>
 
         <!-- For more details see -->
         <!-- http://java.sun.com/products/javamail/javadocs/javax/mail/internet/package-summary.html -->
@@ -58,7 +58,7 @@
         <javamail.system-property9>-Dmail.mime.decodeparameters=true</javamail.system-property9>
         <javamail.system-property10>-Dmail.mime.address.strict=false</javamail.system-property10>
         <javamail.system-properties>${javamail.system-property1} ${javamail.system-property2} ${javamail.system-property3} ${javamail.system-property4} ${javamail.system-property5}
-	        ${javamail.system-property6} ${javamail.system-property7} ${javamail.system-property8} ${javamail.system-property9} ${javamail.system-property10}
+            ${javamail.system-property6} ${javamail.system-property7} ${javamail.system-property8} ${javamail.system-property9} ${javamail.system-property10}
         </javamail.system-properties>
 
         <!-- JMX system properties -->
@@ -79,9 +79,9 @@
     </properties>
 
     <dependencies>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-cli</artifactId>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-cli</artifactId>
         <version>${james.server.version}</version>
     </dependency>
     <dependency>
@@ -123,197 +123,197 @@
         <groupId>org.apache.james</groupId>
         <artifactId>james-server-container-spring</artifactId>
         <version>${james.server.version}</version>
-	    <exclusions>
-		<exclusion>
-		    <groupId>org.springframework.osgi</groupId>
-		    <artifactId>spring-osgi-extender</artifactId>
-		</exclusion>
-		<exclusion>
-		    <groupId>org.osgi</groupId>
-		    <artifactId>org.osgi.core</artifactId>
-		</exclusion>
-	    </exclusions>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-lifecycle-spring</artifactId>
+        <exclusions>
+        <exclusion>
+            <groupId>org.springframework.osgi</groupId>
+            <artifactId>spring-osgi-extender</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-lifecycle-spring</artifactId>
         <version>${james.server.version}</version>
-	    <scope>runtime</scope>
-	    <exclusions>
-		<exclusion>
-		    <groupId>org.springframework.osgi</groupId>
-		    <artifactId>spring-osgi-extender</artifactId>
-		</exclusion>
-		<exclusion>
-		    <groupId>org.osgi</groupId>
-		    <artifactId>org.osgi.core</artifactId>
-		</exclusion>
-	    </exclusions>
-	</dependency>
+        <scope>runtime</scope>
+        <exclusions>
+        <exclusion>
+            <groupId>org.springframework.osgi</groupId>
+            <artifactId>spring-osgi-extender</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </exclusion>
+        </exclusions>
+    </dependency>
     <!-- Runtime dependencies which will get included in the generated binary distribution -->
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-cli</artifactId>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-cli</artifactId>
         <version>${james.server.version}</version>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-api</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-log4j12</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>jcl-over-slf4j</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>commons-daemon</groupId>
-	    <artifactId>commons-daemon</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.camel</groupId>
-	    <artifactId>camel-core</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.camel</groupId>
-	    <artifactId>camel-spring</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.xbean</groupId>
-	    <artifactId>xbean-spring</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>commons-daemon</groupId>
+        <artifactId>commons-daemon</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-core</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.xbean</groupId>
+        <artifactId>xbean-spring</artifactId>
+        <scope>runtime</scope>
+    </dependency>
 
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-jms</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-orm</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-tx</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-jdbc</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-mailetcontainer-camel</artifactId>
-	    <scope>runtime</scope>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jms</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-mailetcontainer-camel</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-mailbox-adapter</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-mailbox-adapter</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-dnsservice-api</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-dnsservice-api</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-dnsservice-dnsjava</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-dnsservice-dnsjava</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-protocols-library</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-protocols-library</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-util</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-util</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-library</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-library</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-ldap</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-ldap</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
+    </dependency>
 
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-protocols-smtp</artifactId>
-	    <scope>runtime</scope>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-protocols-smtp</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-protocols-imap4</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-protocols-imap4</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-protocols-lmtp</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-protocols-lmtp</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-protocols-pop3</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-protocols-pop3</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-fetchmail</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-fetchmail</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-queue-file</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-queue-file</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-queue-jms</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-queue-jms</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-queue-activemq</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-queue-activemq</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-mailets</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-mailets</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
+    </dependency>
         <!-- Comment jackrabbit dependency to avoid lucene version clash with mailbox-lucene (JAMES-1297)
             <dependency>
             <groupId>org.apache.jackrabbit</groupId>
@@ -327,147 +327,169 @@
             </exclusions>
             </dependency>
         -->
-	<dependency>
-	    <groupId>org.apache.derby</groupId>
-	    <artifactId>derby</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>apache-james-mailbox-jpa</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>apache-james-mailbox-spring</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>apache-james-mailbox-lucene</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>apache-james-mailbox-jcr</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>apache-james-mailbox-memory</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-file</artifactId>
-	    <scope>runtime</scope>
+    <dependency>
+        <groupId>org.apache.derby</groupId>
+        <artifactId>derby</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>apache-james-mailbox-jpa</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>apache-james-mailbox-spring</artifactId>
+        <scope>runtime</scope>
+        <exclusions>
+          <exclusion>
+            <artifactId>hbase</artifactId>
+            <groupId>org.apache.hbase</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>hadoop-core</artifactId>
+            <groupId>org.apache.hadoop</groupId>
+          </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>apache-james-mailbox-lucene</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>apache-james-mailbox-jcr</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>apache-james-mailbox-memory</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-file</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-jpa</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-jpa</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-jdbc</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-jdbc</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-hbase</artifactId>
-	    <scope>runtime</scope>
-	    <exclusions>
-		<exclusion>
-		    <groupId>org.jruby</groupId>
-		    <artifactId>jruby-complete</artifactId>
-		</exclusion>
-	    </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-hbase</artifactId>
+        <scope>runtime</scope>
+        <exclusions>
+        <exclusion>
+            <groupId>org.jruby</groupId>
+            <artifactId>jruby-complete</artifactId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hsqldb</artifactId>
+          <groupId>hsqldb</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hbase</artifactId>
+          <groupId>org.apache.hbase</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hadoop-core</artifactId>
+          <groupId>org.apache.hadoop</groupId>
+        </exclusion>
+        </exclusions>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>james-server-data-jcr</artifactId>
-	    <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>james-server-data-jcr</artifactId>
+        <scope>runtime</scope>
         <version>${james.server.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.james</groupId>
-	    <artifactId>apache-james-imap-processor</artifactId>
-	    <scope>runtime</scope>
-	</dependency>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.james</groupId>
+        <artifactId>apache-james-imap-processor</artifactId>
+        <scope>runtime</scope>
+    </dependency>
     </dependencies>
 
     <build>
-	<plugins>
-	    <plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>appassembler-maven-plugin</artifactId>
-		<version>1.0</version>
-		<configuration>
+    <plugins>
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
                     <!-- Include etc/ in the beginning of the classpath declaration in the bin scripts -->
-		    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-		    <configurationDirectory>conf</configurationDirectory>
-		    <target>${project.build.directory}/appassembler</target>
-		    <repositoryLayout>flat</repositoryLayout>
-		    <repositoryName>lib</repositoryName>
-		    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-		    <environmentSetupFileName>setenv</environmentSetupFileName>
+            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+            <configurationDirectory>conf</configurationDirectory>
+            <target>${project.build.directory}/appassembler</target>
+            <repositoryLayout>flat</repositoryLayout>
+            <repositoryName>lib</repositoryName>
+            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+            <environmentSetupFileName>setenv</environmentSetupFileName>
                     <!-- set some sane defaults for memory -->
-		    <extraJvmArguments>${jvm.system-property1} -Xms128m -Xmx512m ${jmx.system-properties} ${javamail.system-properties} ${james.system-properties}</extraJvmArguments>
+            <extraJvmArguments>${jvm.system-property1} -Xms128m -Xmx512m ${jmx.system-properties} ${javamail.system-properties} ${james.system-properties}</extraJvmArguments>
                     <!-- Generate bin scripts for windows and unix per default -->
-		    <platforms>
-			<platform>windows</platform>
-			<platform>unix</platform>
-		    </platforms>
-		    <programs>
-			<program>
-			    <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
+            <platforms>
+            <platform>windows</platform>
+            <platform>unix</platform>
+            </platforms>
+            <programs>
+            <program>
+                <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
                             <!-- call it only run because appassemble will add .bat by default on windows -->
-			    <name>run</name>
+                <name>run</name>
                             <!-- Only generate windows bat script for this application -->
-			    <platforms>
-				<platform>windows</platform>
-			    </platforms>
-			</program>
-			<program>
-			    <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
-			    <name>run.sh</name>
+                <platforms>
+                <platform>windows</platform>
+                </platforms>
+            </program>
+            <program>
+                <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
+                <name>run.sh</name>
                             <!-- Only generate unix shell script for this application -->
-			    <platforms>
-				<platform>unix</platform>
-			    </platforms>
-			</program>
+                <platforms>
+                <platform>unix</platform>
+                </platforms>
+            </program>
 
                         <!-- This create the scripts for the command line administration client. Maybe this should better be moved to the cli module, but I'm not sure yet -->
-			<program>
-			    <mainClass>org.apache.james.cli.ServerCmd</mainClass>
+            <program>
+                <mainClass>org.apache.james.cli.ServerCmd</mainClass>
                             <!-- call it only run because appassemble will add .bat by default on windows -->
-			    <name>james-cli</name>
+                <name>james-cli</name>
                             <!-- Only generate windows bat script for this application -->
-			    <platforms>
-				<platform>windows</platform>
-			    </platforms>
-			</program>
-			<program>
-			    <mainClass>org.apache.james.cli.ServerCmd</mainClass>
-			    <name>james-cli.sh</name>
+                <platforms>
+                <platform>windows</platform>
+                </platforms>
+            </program>
+            <program>
+                <mainClass>org.apache.james.cli.ServerCmd</mainClass>
+                <name>james-cli.sh</name>
                             <!-- Only generate unix shell script for the client -->
-			    <platforms>
-				<platform>unix</platform>
-			    </platforms>
-			</program>
-		    </programs>
-		    <daemons>
-			<daemon>
-			    <id>james</id>
-			    <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
-			    <commandLineArguments>
-				<commandLineArgument>start</commandLineArgument>
-			    </commandLineArguments>
-			    <platforms>
+                <platforms>
+                <platform>unix</platform>
+                </platforms>
+            </program>
+            </programs>
+            <daemons>
+            <daemon>
+                <id>james</id>
+                <mainClass>org.apache.james.app.spring.JamesAppSpringMain</mainClass>
+                <commandLineArguments>
+                <commandLineArgument>start</commandLineArgument>
+                </commandLineArguments>
+                <platforms>
                                 <!--
                                     =======================================================================
 
@@ -530,179 +552,179 @@
                                     END Tanuki Software License ============================================
                                     ========================================================================
                                 -->
-				<platform>jsw</platform>
-			    </platforms>
-			    <generatorConfigurations>
-				<generatorConfiguration>
-				    <generator>jsw</generator>
-				    <includes>
-					<include>linux-x86-32</include>
-					<include>linux-x86-64</include>
-					<include>linux-ppc-64</include>
-					<include>macosx-x86-universal-32</include>
-					<include>macosx-ppc-32</include>
-					<include>solaris-sparc-32</include>
-					<include>solaris-sparc-64</include>
-					<include>solaris-x86-32</include>
-					<include>windows-x86-32</include>
-				    </includes>
+                <platform>jsw</platform>
+                </platforms>
+                <generatorConfigurations>
+                <generatorConfiguration>
+                    <generator>jsw</generator>
+                    <includes>
+                    <include>linux-x86-32</include>
+                    <include>linux-x86-64</include>
+                    <include>linux-ppc-64</include>
+                    <include>macosx-x86-universal-32</include>
+                    <include>macosx-ppc-32</include>
+                    <include>solaris-sparc-32</include>
+                    <include>solaris-sparc-64</include>
+                    <include>solaris-x86-32</include>
+                    <include>windows-x86-32</include>
+                    </includes>
 
-				    <configuration>
-					<property>
-					    <name>configuration.directory.in.classpath.first</name>
-					    <value>../conf</value>
-					</property>
-					<property>
-					    <name>set.default.REPO_DIR</name>
-					    <value>../lib</value>
-					</property>
-					<property>
-					    <name>wrapper.working.dir</name>
-					    <value>.</value>
-					</property>
-					<property>
-					    <name>wrapper.logfile</name>
-					    <value>log/wrapper.log</value>
-					</property>
-					<property>
-					    <name>wrapper.java.library.path</name>
-					    <value>../lib</value>
-					</property>
-					<property>
-					    <name>wrapper.java.initmemory</name>
-					    <value>128</value>
-					</property>
-					<property>
-					    <name>wrapper.java.maxmemory</name>
-					    <value>512</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.1</name>
-					    <value>${jvm.system-property1}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.2</name>
-					    <value>${jmx.system-property1}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.3</name>
-					    <value>${jmx.system-property2}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.4</name>
-					    <value>${javamail.system-property1}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.5</name>
-					    <value>${javamail.system-property2}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.6</name>
-					    <value>${javamail.system-property3}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.7</name>
-					    <value>${javamail.system-property4}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.8</name>
-					    <value>${javamail.system-property5}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.9</name>
-					    <value>${javamail.system-property6}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.10</name>
-					    <value>${javamail.system-property7}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.11</name>
-					    <value>${javamail.system-property8}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.12</name>
-					    <value>${javamail.system-property9}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.13</name>
-					    <value>${javamail.system-property10}</value>
-					</property>
-					<property>
-					    <name>wrapper.java.additional.14</name>
-					    <value>${james.system-property1}</value>
-					</property>
-				    </configuration>
-				</generatorConfiguration>
-			    </generatorConfigurations>
+                    <configuration>
+                    <property>
+                        <name>configuration.directory.in.classpath.first</name>
+                        <value>../conf</value>
+                    </property>
+                    <property>
+                        <name>set.default.REPO_DIR</name>
+                        <value>../lib</value>
+                    </property>
+                    <property>
+                        <name>wrapper.working.dir</name>
+                        <value>.</value>
+                    </property>
+                    <property>
+                        <name>wrapper.logfile</name>
+                        <value>log/wrapper.log</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.library.path</name>
+                        <value>../lib</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.initmemory</name>
+                        <value>128</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.maxmemory</name>
+                        <value>512</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.1</name>
+                        <value>${jvm.system-property1}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.2</name>
+                        <value>${jmx.system-property1}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.3</name>
+                        <value>${jmx.system-property2}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.4</name>
+                        <value>${javamail.system-property1}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.5</name>
+                        <value>${javamail.system-property2}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.6</name>
+                        <value>${javamail.system-property3}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.7</name>
+                        <value>${javamail.system-property4}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.8</name>
+                        <value>${javamail.system-property5}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.9</name>
+                        <value>${javamail.system-property6}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.10</name>
+                        <value>${javamail.system-property7}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.11</name>
+                        <value>${javamail.system-property8}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.12</name>
+                        <value>${javamail.system-property9}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.13</name>
+                        <value>${javamail.system-property10}</value>
+                    </property>
+                    <property>
+                        <name>wrapper.java.additional.14</name>
+                        <value>${james.system-property1}</value>
+                    </property>
+                    </configuration>
+                </generatorConfiguration>
+                </generatorConfigurations>
 
-			</daemon>
-		    </daemons>
-		</configuration>
-		<executions>
-		    <execution>
-			<id>make-appassemble</id>
-			<phase>package</phase>
-			<goals>
-			    <goal>assemble</goal>
-			    <goal>generate-daemons</goal>
-			</goals>
-		    </execution>
-		</executions>
-	    </plugin>
-	    <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-antrun-plugin</artifactId>
-		<version>1.2</version>
-		<executions>
-		    <execution>
-			<phase>package</phase>
-			<configuration>
+            </daemon>
+            </daemons>
+        </configuration>
+        <executions>
+            <execution>
+            <id>make-appassemble</id>
+            <phase>package</phase>
+            <goals>
+                <goal>assemble</goal>
+                <goal>generate-daemons</goal>
+            </goals>
+            </execution>
+        </executions>
+        </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.2</version>
+        <executions>
+            <execution>
+            <phase>package</phase>
+            <configuration>
 
-			    <tasks>
+                <tasks>
                                 <!-- this is only needed because windows freak out on long cmd lines, so we strip of the absolute path
                                     from the lib dir to make windows happy again
                                 -->
-				<replace file="${project.build.directory}/appassembler/bin/run.bat" token="%BASEDIR%\lib" value="..\lib" />
-				<replace file="${project.build.directory}/appassembler/bin/run.sh" token="setenv" value="setenv.sh" />
+                <replace file="${project.build.directory}/appassembler/bin/run.bat" token="%BASEDIR%\lib" value="..\lib" />
+                <replace file="${project.build.directory}/appassembler/bin/run.sh" token="setenv" value="setenv.sh" />
 
                                 <!-- this is needed because appassembler is not really smart on some settings -->
-				<replace file="${project.build.directory}/appassembler/jsw/james/conf/wrapper.conf" token="lib/wrapper.jar" value="%REPO_DIR%/wrapper.jar" />
-				<replace file="${project.build.directory}/appassembler/jsw/james/bin/james" token="logs" value="var" />
+                <replace file="${project.build.directory}/appassembler/jsw/james/conf/wrapper.conf" token="lib/wrapper.jar" value="%REPO_DIR%/wrapper.jar" />
+                <replace file="${project.build.directory}/appassembler/jsw/james/bin/james" token="logs" value="var" />
 
                                 <!-- copy the linux wrapper-linux-x86-32 to wrapper, so use it as default if no matching wrapper was found -->
-				<copy file="${project.build.directory}/appassembler/jsw/james/bin/wrapper-linux-x86-32" tofile="${project.build.directory}/appassembler/jsw/james/bin/wrapper" />
+                <copy file="${project.build.directory}/appassembler/jsw/james/bin/wrapper-linux-x86-32" tofile="${project.build.directory}/appassembler/jsw/james/bin/wrapper" />
                                 <!-- this is only needed because windows freak out on long cmd lines, so we strip of the absolute path
                                     from the lib dir to make windows happy again
                                 -->
-				<replace file="${project.build.directory}/appassembler/bin/james-cli.bat" token="%BASEDIR%\lib" value="..\lib" />
-				<replace file="${project.build.directory}/appassembler/bin/james-cli.sh" token="setenv" value="setenv.sh" />
-			    </tasks>
+                <replace file="${project.build.directory}/appassembler/bin/james-cli.bat" token="%BASEDIR%\lib" value="..\lib" />
+                <replace file="${project.build.directory}/appassembler/bin/james-cli.sh" token="setenv" value="setenv.sh" />
+                </tasks>
 
-			</configuration>
-			<goals>
-			    <goal>run</goal>
-			</goals>
-		    </execution>
-		</executions>
-	    </plugin>
+            </configuration>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            </execution>
+        </executions>
+        </plugin>
 
-	    <plugin>
-		<artifactId>maven-assembly-plugin</artifactId>
-		<configuration>
-		    <descriptorSourceDirectory>src/assemble/</descriptorSourceDirectory>
-		    <tarLongFileMode>gnu</tarLongFileMode>
-		</configuration>
-		<executions>
-		    <execution>
-			<id>make-assembly</id>
-			<phase>package</phase>
-			<goals>
-			    <goal>attached</goal>
-			</goals>
-		    </execution>
-		</executions>
-	    </plugin>
+        <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+            <descriptorSourceDirectory>src/assemble/</descriptorSourceDirectory>
+            <tarLongFileMode>gnu</tarLongFileMode>
+        </configuration>
+        <executions>
+            <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+                <goal>attached</goal>
+            </goals>
+            </execution>
+        </executions>
+        </plugin>
 
             <!--
                 The signing process excludes the artifact created by this plugin.
@@ -710,60 +732,60 @@
                 If this is the case then releasing the war would require
                 reorganisation.
             -->
-	    <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-war-plugin</artifactId>
-		<configuration>
-		    <webResources>
-			<resource>
-			    <directory>src/main/resources</directory>
-                            <!-- override the destination directory for this resource -->
-			    <targetPath>WEB-INF/conf/</targetPath>
-			    <excludes>
-				<exclude>log4j.properties</exclude>
-				<exclude>**/lib/**</exclude>
-			    </excludes>
-			</resource>
-			<resource>
-			    <directory>src/main/resources</directory>
-                            <!-- override the destination directory for this resource -->
-			    <targetPath>WEB-INF/classes/</targetPath>
-			    <includes>
-				<include>log4j.properties</include>
-			    </includes>
-			</resource>
-			<resource>
-			    <directory>src/main/config/war</directory>
-                            <!-- override the destination directory for this resource -->
-			    <targetPath>WEB-INF/conf/</targetPath>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+            <webResources>
+            <resource>
+                <directory>src/main/resources</directory>
+                 <!-- override the destination directory for this resource -->
+                <targetPath>WEB-INF/conf/</targetPath>
+                <excludes>
+                <exclude>log4j.properties</exclude>
+                <exclude>**/lib/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                 <!-- override the destination directory for this resource -->
+                <targetPath>WEB-INF/classes/</targetPath>
+                <includes>
+                <include>log4j.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/config/war</directory>
+                 <!-- override the destination directory for this resource -->
+                <targetPath>WEB-INF/conf/</targetPath>
 
-			</resource>
-			<resource>
-			    <directory>src/main/licensing/war</directory>
-			    <targetPath>META-INF</targetPath>
-			    <excludes>
-				<exclude>licensing.xml</exclude>
-			    </excludes>
-			</resource>
-			<resource>
-			    <directory>.</directory>
-			    <targetPath>META-INF</targetPath>
-			    <includes>
-				<include>README*</include>
-			    </includes>
-			</resource>
-		    </webResources>
-		</configuration>
-		<executions>
-		    <execution>
-			<id>make-war</id>
-			<phase>package</phase>
-			<goals>
-			    <goal>war</goal>
-			</goals>
-		    </execution>
-		</executions>
-	    </plugin>
+            </resource>
+            <resource>
+                <directory>src/main/licensing/war</directory>
+                <targetPath>META-INF</targetPath>
+                <excludes>
+                <exclude>licensing.xml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>.</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                <include>README*</include>
+                </includes>
+            </resource>
+            </webResources>
+        </configuration>
+        <executions>
+            <execution>
+            <id>make-war</id>
+            <phase>package</phase>
+            <goals>
+                <goal>war</goal>
+            </goals>
+            </execution>
+        </executions>
+        </plugin>
 
             <!-- be sure to start up james before run it -->
             <!--
@@ -821,157 +843,157 @@
                 </plugin>
             -->
 
-	</plugins>
+    </plugins>
 
     </build>
     
     <profiles>
-	<profile>
-	    <id>make-deb</id>
-	    <build>
+    <profile>
+        <id>make-deb</id>
+        <build>
                 <!-- copy resources and filter properties -->
-		<resources>
-		    <resource>
-			<directory>src/debian/control</directory>
-			<filtering>true</filtering>
-			<includes>
-			    <include>*</include>
-			</includes>
-			<targetPath>${project.build.directory}/debian/control</targetPath>
-		    </resource>
-		    <resource>
-			<directory>src/main/resources</directory>
+        <resources>
+            <resource>
+            <directory>src/debian/control</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>*</include>
+            </includes>
+            <targetPath>${project.build.directory}/debian/control</targetPath>
+            </resource>
+            <resource>
+            <directory>src/main/resources</directory>
                             <!-- override the destination directory for this resource -->
-			<targetPath>${project.build.directory}/debian/resources</targetPath>
-			<includes>
-			    <include>**/*.*</include>
-			</includes>
-		    </resource>
-		</resources>
-		<plugins>
-		    <plugin>
-			<artifactId>jdeb</artifactId>
-			<groupId>org.vafer</groupId>
-			<version>0.9</version>
-			<executions>
-			    <execution>
-				<phase>package</phase>
-				<goals>
-				    <goal>jdeb</goal>
-				</goals>
-				<configuration>
-				    <deb>${project.build.directory}/${project.artifactId}_${project.version}_all.deb</deb>
-				    <dataSet>
-					<data>
-					    <src>${project.build.directory}/${project.build.finalName}.jar</src>
-					    <type>file</type>
-					    <mapper>
-						<type>file</type>
-						<prefix>/</prefix>
-					    </mapper>
-					    <mapper>
-						<type>perm</type>
-						<prefix>/usr/share/${project.artifactId}</prefix>
-						<user>root</user>
-						<group>root</group>
-						<filemode>644</filemode>
-					    </mapper>
-					</data>
+            <targetPath>${project.build.directory}/debian/resources</targetPath>
+            <includes>
+                <include>**/*.*</include>
+            </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+            <artifactId>jdeb</artifactId>
+            <groupId>org.vafer</groupId>
+            <version>0.9</version>
+            <executions>
+                <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>jdeb</goal>
+                </goals>
+                <configuration>
+                    <deb>${project.build.directory}/${project.artifactId}_${project.version}_all.deb</deb>
+                    <dataSet>
+                    <data>
+                        <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                        <type>file</type>
+                        <mapper>
+                        <type>file</type>
+                        <prefix>/</prefix>
+                        </mapper>
+                        <mapper>
+                        <type>perm</type>
+                        <prefix>/usr/share/${project.artifactId}</prefix>
+                        <user>root</user>
+                        <group>root</group>
+                        <filemode>644</filemode>
+                        </mapper>
+                    </data>
                                         <!-- all files and dirs -->
-					<data>
-					    <src>${project.basedir}/src/main/app</src>
-					    <type>directory</type>
-					    <includes>*</includes>
-					    <excludes>**/.svn</excludes>
-					    <mapper>
-						<type>directory</type>
-						<prefix>/usr/share/${project.artifactId}</prefix>
-					    </mapper>
-					    <mapper>
-						<type>perm</type>
-						<prefix>/usr/share/${project.artifactId}</prefix>
-						<user>root</user>
-						<group>root</group>
-						<filemode>755</filemode>
-					    </mapper>
-					</data>
+                    <data>
+                        <src>${project.basedir}/src/main/app</src>
+                        <type>directory</type>
+                        <includes>*</includes>
+                        <excludes>**/.svn</excludes>
+                        <mapper>
+                        <type>directory</type>
+                        <prefix>/usr/share/${project.artifactId}</prefix>
+                        </mapper>
+                        <mapper>
+                        <type>perm</type>
+                        <prefix>/usr/share/${project.artifactId}</prefix>
+                        <user>root</user>
+                        <group>root</group>
+                        <filemode>755</filemode>
+                        </mapper>
+                    </data>
                                        <!-- conf files - in the future: move them to /usr/share/james/conf ?? -->
-					<data>
-					    <src>${project.build.directory}/debian/resources</src>
-					    <type>directory</type>
-					    <includes>*</includes>
-					    <excludes>**/.svn</excludes>
-					    <mapper>
-						<type>directory</type>
-						<prefix>/etc/${project.artifactId}</prefix>
-					    </mapper>
-					    <mapper>
-						<type>perm</type>
-						<prefix>/etc/${project.artifactId}</prefix>
-						<user>root</user>
-						<group>root</group>
-						<filemode>644</filemode>
-					    </mapper>
-					</data>
+                    <data>
+                        <src>${project.build.directory}/debian/resources</src>
+                        <type>directory</type>
+                        <includes>*</includes>
+                        <excludes>**/.svn</excludes>
+                        <mapper>
+                        <type>directory</type>
+                        <prefix>/etc/${project.artifactId}</prefix>
+                        </mapper>
+                        <mapper>
+                        <type>perm</type>
+                        <prefix>/etc/${project.artifactId}</prefix>
+                        <user>root</user>
+                        <group>root</group>
+                        <filemode>644</filemode>
+                        </mapper>
+                    </data>
                                         <!-- package documentation files (realease info, install, no javadoc) -->
-					<data>
-					    <src>${project.basedir}</src>
-					    <type>directory</type>
-					    <includes>README.txt,README.crypto,NOTICE</includes>
-					    <mapper>
-						<type>directory</type>
-						<prefix>/usr/share/doc/${project.artifactId}</prefix>
-					    </mapper>
-					    <mapper>
-						<type>perm</type>
-						<prefix>/usr/share/doc/${project.artifactId}</prefix>
-						<user>root</user>
-						<group>root</group>
-						<filemode>644</filemode>
-					    </mapper>
-					</data>
-					<data>
-					    <src>${project.build.directory}/debian/control/copyright</src>
-					    <type>file</type>
-					    <mapper>
-						<type>file</type>
-						<prefix>/</prefix>
-					    </mapper>
-					    <mapper>
-						<type>perm</type>
-						<prefix>/usr/share/doc/${project.artifactId}</prefix>
-						<user>root</user>
-						<group>root</group>
-						<filemode>644</filemode>
-					    </mapper>
-					</data>
+                    <data>
+                        <src>${project.basedir}</src>
+                        <type>directory</type>
+                        <includes>README.txt,README.crypto,NOTICE</includes>
+                        <mapper>
+                        <type>directory</type>
+                        <prefix>/usr/share/doc/${project.artifactId}</prefix>
+                        </mapper>
+                        <mapper>
+                        <type>perm</type>
+                        <prefix>/usr/share/doc/${project.artifactId}</prefix>
+                        <user>root</user>
+                        <group>root</group>
+                        <filemode>644</filemode>
+                        </mapper>
+                    </data>
+                    <data>
+                        <src>${project.build.directory}/debian/control/copyright</src>
+                        <type>file</type>
+                        <mapper>
+                        <type>file</type>
+                        <prefix>/</prefix>
+                        </mapper>
+                        <mapper>
+                        <type>perm</type>
+                        <prefix>/usr/share/doc/${project.artifactId}</prefix>
+                        <user>root</user>
+                        <group>root</group>
+                        <filemode>644</filemode>
+                        </mapper>
+                    </data>
                     <!-- libs -->
-					<data>
-					    <src>${project.build.directory}/appassembler/lib</src>
-					    <type>directory</type>
-					    <mapper>
-						<type>directory</type>
-						<prefix>/usr/share/${project.artifactId}/lib</prefix>
-					    </mapper>
-					    <mapper>
-						<type>perm</type>
-						<prefix>/usr/share/${project.artifactId}/lib</prefix>
-						<user>root</user>
-						<group>root</group>
-						<filemode>644</filemode>
-					    </mapper>
-					</data>
-				    </dataSet>
-				    <controlDir>${project.build.directory}/debian/control</controlDir>
-				    <changesIn>${project.basedir}README.txt</changesIn>
-				    <changesOut>${project.build.directory}/${project.build.finalName}.changes</changesOut>
-				</configuration>
-			    </execution>
-			</executions>
-		    </plugin>
-		</plugins>
-	    </build>
-	</profile>
+                    <data>
+                        <src>${project.build.directory}/appassembler/lib</src>
+                        <type>directory</type>
+                        <mapper>
+                        <type>directory</type>
+                        <prefix>/usr/share/${project.artifactId}/lib</prefix>
+                        </mapper>
+                        <mapper>
+                        <type>perm</type>
+                        <prefix>/usr/share/${project.artifactId}/lib</prefix>
+                        <user>root</user>
+                        <group>root</group>
+                        <filemode>644</filemode>
+                        </mapper>
+                    </data>
+                    </dataSet>
+                    <controlDir>${project.build.directory}/debian/control</controlDir>
+                    <changesIn>${project.basedir}README.txt</changesIn>
+                    <changesOut>${project.build.directory}/${project.build.finalName}.changes</changesOut>
+                </configuration>
+                </execution>
+            </executions>
+            </plugin>
+        </plugins>
+        </build>
+    </profile>
   </profiles>
     
 </project>
