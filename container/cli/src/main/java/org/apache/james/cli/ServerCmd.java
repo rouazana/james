@@ -169,7 +169,11 @@ public class ServerCmd {
             probe.removeDomain(arguments[1]);
             break;
         case CONTAINSDOMAIN:
-            probe.containsDomain(arguments[1]);
+            if (probe.containsDomain(arguments[1])) {
+                System.out.println(arguments[1] + " exists");
+            } else {
+                System.out.println(arguments[1] + " does not exists");
+            }
             break;
         case LISTDOMAINS:
             print(probe.listDomains(), System.out);
