@@ -26,6 +26,7 @@ import org.apache.james.mailbox.SubscriptionManager;
 import org.apache.james.mailbox.cassandra.*;
 import org.apache.james.mailbox.cassandra.mail.CassandraModSeqProvider;
 import org.apache.james.mailbox.cassandra.mail.CassandraUidProvider;
+import org.apache.james.mailbox.elasticsearch.events.ElasticSearchListeningMessageSearchIndex;
 import org.apache.james.mailbox.store.Authenticator;
 import org.apache.james.mailbox.store.NoMailboxPathLocker;
 import org.apache.james.mailbox.store.mail.MessageMapperFactory;
@@ -34,6 +35,7 @@ import org.apache.james.mailbox.store.mail.UidProvider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
+import org.apache.james.mailbox.store.search.MessageSearchIndex;
 
 public class CassandraMailboxModule extends AbstractModule {
 
@@ -43,8 +45,10 @@ public class CassandraMailboxModule extends AbstractModule {
     protected void configure() {
         bind(MailboxManager.class).annotatedWith(Names.named(MAILBOXMANAGER_NAME)).to(CassandraMailboxManager.class);
 
+        bind(new TypeLiteral<MessageSearchIndex<CassandraId>>(){}).to(new TypeLiteral<ElasticSearchListeningMessageSearchIndex<CassandraId>>(){});
+
         bind(SubscriptionManager.class).to(CassandraSubscriptionManager.class);
-        bind(MessageMapperFactory.class).to(CassandraMailboxSessionMapperFactory.class);
+        bind(new TypeLiteral<MessageMapperFactory<CassandraId>>(){}).to(new TypeLiteral<CassandraMailboxSessionMapperFactory>(){});
 
         bind(MailboxPathLocker.class).to(NoMailboxPathLocker.class);
         bind(Authenticator.class).to(UserRepositoryAuthenticator.class);
