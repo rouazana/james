@@ -18,12 +18,14 @@
  ****************************************************************/
 package org.apache.james.modules.mailbox;
 
-import com.google.inject.name.Names;
 import org.apache.james.adapter.mailbox.store.UserRepositoryAuthenticator;
 import org.apache.james.mailbox.MailboxManager;
 import org.apache.james.mailbox.MailboxPathLocker;
 import org.apache.james.mailbox.SubscriptionManager;
-import org.apache.james.mailbox.cassandra.*;
+import org.apache.james.mailbox.cassandra.CassandraId;
+import org.apache.james.mailbox.cassandra.CassandraMailboxManager;
+import org.apache.james.mailbox.cassandra.CassandraMailboxSessionMapperFactory;
+import org.apache.james.mailbox.cassandra.CassandraSubscriptionManager;
 import org.apache.james.mailbox.cassandra.mail.CassandraModSeqProvider;
 import org.apache.james.mailbox.cassandra.mail.CassandraUidProvider;
 import org.apache.james.mailbox.elasticsearch.events.ElasticSearchListeningMessageSearchIndex;
@@ -32,10 +34,15 @@ import org.apache.james.mailbox.store.NoMailboxPathLocker;
 import org.apache.james.mailbox.store.mail.MessageMapperFactory;
 import org.apache.james.mailbox.store.mail.ModSeqProvider;
 import org.apache.james.mailbox.store.mail.UidProvider;
+import org.apache.james.mailbox.store.search.MessageSearchIndex;
+import org.apache.james.utils.ConfigurationPerformer;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import org.apache.james.mailbox.store.search.MessageSearchIndex;
+import com.google.inject.multibindings.Multibinder;
+import com.google.inject.name.Names;
 
 public class CassandraMailboxModule extends AbstractModule {
 
@@ -55,5 +62,21 @@ public class CassandraMailboxModule extends AbstractModule {
 
         bind(new TypeLiteral<ModSeqProvider<CassandraId>>(){}).to(new TypeLiteral<CassandraModSeqProvider>(){});
         bind(new TypeLiteral<UidProvider<CassandraId>>(){}).to(new TypeLiteral<CassandraUidProvider>(){});
+        Multibinder.newSetBinder(binder(), ConfigurationPerformer.class).addBinding().to(MailboxConfigurationPerformer.class);
+    }
+
+    @Singleton
+    public static class MailboxConfigurationPerformer implements ConfigurationPerformer {
+
+        private final CassandraMailboxManager storeMailboxManager;
+
+        @Inject
+        public MailboxConfigurationPerformer(CassandraMailboxManager storeMailboxManager) {
+            this.storeMailboxManager = storeMailboxManager;
+        }
+
+        public void initModule() throws Exception {
+            storeMailboxManager.init();
+        }
     }
 }

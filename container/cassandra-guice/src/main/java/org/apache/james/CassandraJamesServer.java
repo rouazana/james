@@ -18,7 +18,10 @@
  ****************************************************************/
 package org.apache.james;
 
+import org.apache.james.utils.ConfigurationsPerformer;
+
 import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.google.inject.Module;
 
 public class CassandraJamesServer {
@@ -29,8 +32,9 @@ public class CassandraJamesServer {
         this.serverModule = serverModule;
     }
 
-    public void start() {
-        Guice.createInjector(serverModule);
+    public void start() throws Exception {
+        Injector injector = Guice.createInjector(serverModule);
+        injector.getInstance(ConfigurationsPerformer.class).initModules();
     }
 
     public void stop() {
