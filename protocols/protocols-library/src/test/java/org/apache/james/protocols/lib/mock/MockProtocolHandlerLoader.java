@@ -24,7 +24,7 @@ public class MockProtocolHandlerLoader implements ProtocolHandlerLoader{
         try {
             ProtocolHandler obj = create(name);
             injectResources(obj);
-            postConstruct(obj);
+            postConstruct(obj, config);
             synchronized (this) {
                 loaderRegistry.add(obj);
             }
@@ -67,12 +67,12 @@ public class MockProtocolHandlerLoader implements ProtocolHandlerLoader{
         loaderRegistry.clear();
     }
 
-    private void postConstruct(Object resource) throws IllegalAccessException, InvocationTargetException {
+    private void postConstruct(Object resource, Configuration config) throws IllegalAccessException, InvocationTargetException {
         Method[] methods = resource.getClass().getMethods();
         for (Method method : methods) {
             PostConstruct postConstructAnnotation = method.getAnnotation(PostConstruct.class);
             if (postConstructAnnotation != null) {
-                Object[] args = {};
+                Object[] args = { config };
                 method.invoke(resource, args);
 
             }
@@ -92,9 +92,9 @@ public class MockProtocolHandlerLoader implements ProtocolHandlerLoader{
     }
 
     private void injectResources(Object resource) {
-        final Method[] methods = resource.getClass().getMethods();
+        Method[] methods = resource.getClass().getMethods();
         for (Method method : methods) {
-            final Inject injectAnnotation = method.getAnnotation(Inject.class);
+            Inject injectAnnotation = method.getAnnotation(Inject.class);
             if (injectAnnotation != null) {
                 String name = null;
                 Annotation[][] paramAnnotations = method.getParameterAnnotations();
@@ -105,25 +105,26 @@ public class MockProtocolHandlerLoader implements ProtocolHandlerLoader{
                         }
                     }
                 }
+
                 if (name == null) {
-                    throw new UnsupportedOperationException("@Inject annotation without @Named specified is not supported by this implementation");
-                } else {
-                    // Name indicates a service
-                    final Object service = getObjectForName(name);
-                    if (service == null) {
-                        throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource name " + name + ", because no mapping was found");
-                    } else {
-                        try {
-                            Object[] args = { service };
-                            method.invoke(resource, args);
-                        } catch (IllegalAccessException e) {
-                            throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource " + service, e);
-                        } catch (IllegalArgumentException e) {
-                            throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource " + service, e);
-                        } catch (InvocationTargetException e) {
-                            throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource " + service, e);
-                        }
-                    }
+                    Class<?> clazz = method.getParameterTypes()[0];
+                    name = clazz.getSimpleName().toLowerCase();
+                }
+
+                Object service = getObjectForName(name);
+                if (service == null) {
+                    throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource name " + name + ", because no mapping was found");
+                }
+                
+                try {
+                    Object[] args = { service };
+                    method.invoke(resource, args);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource " + service, e);
+                } catch (IllegalArgumentException e) {
+                    throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource " + service, e);
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException("Injection failed for object " + resource + " on method " + method + " with resource " + service, e);
                 }
             }
         }
