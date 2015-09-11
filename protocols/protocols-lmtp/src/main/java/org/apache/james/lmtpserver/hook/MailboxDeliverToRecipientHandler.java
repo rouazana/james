@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.james.mailbox.MailboxManager;
 import org.apache.james.mailbox.MailboxSession;
@@ -56,7 +57,7 @@ public class MailboxDeliverToRecipientHandler implements DeliverToRecipientHook 
     }
 
     @Inject
-    public final void setMailboxManager(MailboxManager mailboxManager) {
+    public final void setMailboxManager(@Named("mailboxmanager") MailboxManager mailboxManager) {
         this.mailboxManager = mailboxManager;
     }
     
