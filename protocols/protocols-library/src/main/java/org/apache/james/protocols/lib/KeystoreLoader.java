@@ -16,15 +16,29 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.james.jmap;
 
-public class BadRequestException extends RuntimeException {
-	
-	public BadRequestException(String message) {
-		super(message);
-	}
-	
-	public BadRequestException(String message, Throwable cause) {
-		super(message, cause);
-	}
+package org.apache.james.protocols.lib;
+
+import org.apache.james.filesystem.api.FileSystem;
+
+import java.io.InputStream;
+import java.security.KeyStore;
+
+public class KeystoreLoader {
+
+    public static final String JKS = "JKS";
+
+    private FileSystem fileSystem;
+
+    public void setFileSystem(FileSystem fileSystem) {
+        this.fileSystem = fileSystem;
+    }
+
+    public KeyStore load(String keystoreURL, String secret) throws Exception {
+        KeyStore result = KeyStore.getInstance(JKS);
+        InputStream fis = fileSystem.getResource(keystoreURL);
+        result.load(fis, secret.toCharArray());
+        return result;
+    }
+
 }
