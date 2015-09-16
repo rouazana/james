@@ -19,8 +19,7 @@
 
 package org.apache.james;
 
-import com.google.inject.Module;
-import com.google.inject.util.Modules;
+import org.apache.james.modules.CommonServicesModule;
 import org.apache.james.modules.mailbox.CassandraMailboxModule;
 import org.apache.james.modules.mailbox.CassandraSessionModule;
 import org.apache.james.modules.mailbox.ElasticSearchMailboxModule;
@@ -37,9 +36,14 @@ import org.apache.james.modules.server.JMXServerModule;
 import org.apache.james.modules.server.MailStoreRepositoryModule;
 import org.apache.james.modules.server.SieveModule;
 
+import com.google.inject.Module;
+import com.google.inject.util.Modules;
+
 public class CassandraJamesServerMain {
 
-    public static final Module defaultModule = Modules.combine(new CassandraMailboxModule(),
+    public static final Module defaultModule = Modules.combine(
+        new CommonServicesModule(),
+        new CassandraMailboxModule(),
         new CassandraSessionModule(),
         new ElasticSearchMailboxModule(),
         new CassandraDataModule(),
@@ -56,8 +60,8 @@ public class CassandraJamesServerMain {
 
     public static void main(String[] args) throws Exception {
         CassandraJamesServer server = new CassandraJamesServer(Modules.combine(
-            defaultModule,
-            new JMXServerModule()));
+                defaultModule,
+                new JMXServerModule()));
         server.start();
     }
 
