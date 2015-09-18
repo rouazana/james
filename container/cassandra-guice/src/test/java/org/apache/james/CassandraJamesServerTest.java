@@ -27,17 +27,19 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 
 import org.apache.james.mailbox.cassandra.CassandraClusterSingleton;
-import com.google.inject.util.Modules;
 import org.apache.james.mailbox.elasticsearch.EmbeddedElasticSearch;
 import org.apache.james.modules.TestElasticSearchModule;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.junit.rules.RuleChain;
 import org.junit.rules.TemporaryFolder;
 
+import com.google.inject.util.Modules;
+
+@Ignore("ISSUE-23 - FIXME")
 public class CassandraJamesServerTest {
 
     private static final CassandraClusterSingleton CASSANDRA = CassandraClusterSingleton.build();
