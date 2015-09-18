@@ -31,7 +31,9 @@ import java.net.InetSocketAddress;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -44,14 +46,17 @@ import junitparams.Parameters;
 @SuppressWarnings("restriction")
 @RunWith(JUnitParamsRunner.class)
 public abstract class AbstractFileSystemTest {
-    private static final String TEST_CONFIGURATION_DIRECTORY = "confDirTest";
     private static final String FAKE_DIRECTORY = "b7b73e3a-5234-11e5-87f2-9b171f273b49/";
     private static final String FAKE_FILE = "d9091ae6-521f-11e5-b666-bb11fef67c2a";
     private static final String EXISTING_CLASSPATH_FILE = "classpathTest.txt";
     private static final String EXISTING_CLASSPATH_FILE_WITH_SPACES = "class path Test.txt";
 
+    @Rule public TemporaryFolder tmpFolder = new TemporaryFolder();
+
     protected FileSystem fileSystem;
+    
     private HttpServer httpServer;
+    private File rootDirectory;
     
     protected abstract FileSystem buildFileSystem(String configurationRootDirectory);
 
@@ -61,7 +66,17 @@ public abstract class AbstractFileSystemTest {
         httpServer.createContext("/", new SlashHandler());
         httpServer.start();
         
-        fileSystem = buildFileSystem(ClassLoader.getSystemResource(TEST_CONFIGURATION_DIRECTORY).getPath());
+        rootDirectory = tmpFolder.getRoot();
+        createSubFolderWithAFileIn("conf", "conf.txt", "confcontent");
+        createSubFolderWithAFileIn("var", "var.txt", "varcontent");
+        
+        fileSystem = buildFileSystem(rootDirectory.getAbsolutePath());
+    }
+
+    private void createSubFolderWithAFileIn(String folderName, String fileName, String fileContent) throws IOException {
+        File folder = tmpFolder.newFolder(folderName);
+        File file = new File(folder.getAbsolutePath() + "/" + fileName);
+        FileUtils.writeStringToFile(file, fileContent);
     }
 
     @After
@@ -88,7 +103,7 @@ public abstract class AbstractFileSystemTest {
     @Test
     public final void getBaseDirShouldReturnParentDir() throws Exception {
         File basedir = fileSystem.getBasedir();
-        assertThat(basedir.getPath()).endsWith(TEST_CONFIGURATION_DIRECTORY);
+        assertThat(basedir.getPath()).isEqualTo(rootDirectory.getAbsolutePath());
     }
 
     @Test(expected = NullPointerException.class)
@@ -175,7 +190,10 @@ public abstract class AbstractFileSystemTest {
             return $(
                     $("http://localhost:$PORT$/"),
                     $("classpath:java/lang/String.class"),
-                    $("classpath:" + EXISTING_CLASSPATH_FILE)
+                    $("classpath:" + EXISTING_CLASSPATH_FILE),
+                    $("classpath:" + EXISTING_CLASSPATH_FILE_WITH_SPACES),
+                    $("classpath:/" + EXISTING_CLASSPATH_FILE),
+                    $("classpath:/" + EXISTING_CLASSPATH_FILE_WITH_SPACES)
             );
         }
     }
@@ -191,24 +209,6 @@ public abstract class AbstractFileSystemTest {
 
     private String replacePort(String url) {
         return url.replace("$PORT$", String.valueOf(httpServer.getAddress().getPort()));
-    }
-
-    public static class ExistingFilesProvider {
-        public static Object[] provide() {
-            return $(
-                    $("classpath:" + EXISTING_CLASSPATH_FILE),
-                    $("classpath:" + EXISTING_CLASSPATH_FILE_WITH_SPACES),
-                    $("classpath:/" + EXISTING_CLASSPATH_FILE),
-                    $("classpath:/" + EXISTING_CLASSPATH_FILE_WITH_SPACES)
-            );
-        }
-    }
-
-    @Test
-    @Parameters(source = ExistingFilesProvider.class)
-    public final void existingFileShouldExist(String url) throws Exception {
-        File file = fileSystem.getFile(url);
-        assertThat(file).exists();
     }
 
     public static class FileToCreateProvider {
