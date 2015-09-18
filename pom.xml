@@ -117,7 +117,7 @@
         <camel.version>2.10.3</camel.version>
         <derby.version>10.9.1.0</derby.version>
         <hadoop.version>1.1.1</hadoop.version>
-        <hbase.version>0.92.0</hbase.version>
+        <hbase.version>0.94.27</hbase.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.mail.groupId>org.apache.geronimo.javamail</javax.mail.groupId>
         <javax.mail.artifactId>geronimo-javamail_1.4_mail</javax.mail.artifactId>

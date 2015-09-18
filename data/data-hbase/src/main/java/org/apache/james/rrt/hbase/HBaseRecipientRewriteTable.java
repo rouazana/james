@@ -28,7 +28,7 @@ import java.util.Map;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Get;
-import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.HTableInterface;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
@@ -75,7 +75,7 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
     @Override
     protected Collection<String> getUserDomainMappingsInternal(String user, String domain) throws
             RecipientRewriteTableException {
-        HTable table = null;
+        HTableInterface table = null;
         List<String> list = new ArrayList<String>();
         try {
             table = TablePool.getInstance().getRecipientRewriteTable();
@@ -96,7 +96,7 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
         return list;
     }
 
-    private void feedUserDomainMappingsList(HTable table, String user, String domain, Collection<String> list) throws
+    private void feedUserDomainMappingsList(HTableInterface table, String user, String domain, Collection<String> list) throws
             IOException {
         Get get = new Get(Bytes.toBytes(getRowKey(user, domain)));
         Result result = table.get(get);
@@ -112,14 +112,14 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
      */
     @Override
     protected Map<String, Collection<String>> getAllMappingsInternal() throws RecipientRewriteTableException {
-        HTable table = null;
+        HTableInterface table = null;
         ResultScanner resultScanner = null;
         Map<String, Collection<String>> map = null;
         try {
             table = TablePool.getInstance().getRecipientRewriteTable();
             Scan scan = new Scan();
             scan.addFamily(HRecipientRewriteTable.COLUMN_FAMILY_NAME);
-            scan.setCaching(table.getScannerCaching() * 2);
+            scan.setCaching(table.getConfiguration().getInt("hbase.client.scanner.caching", 1) * 2);
             resultScanner = table.getScanner(scan);
             Result result;
             while ((result = resultScanner.next()) != null) {
@@ -162,7 +162,7 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
      */
     @Override
     protected String mapAddressInternal(String user, String domain) throws RecipientRewriteTableException {
-        HTable table = null;
+        HTableInterface table = null;
         String mappings = null;
         try {
             table = TablePool.getInstance().getRecipientRewriteTable();
@@ -188,7 +188,7 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
         return mappings;
     }
 
-    private String getMapping(HTable table, String user, String domain) throws IOException {
+    private String getMapping(HTableInterface table, String user, String domain) throws IOException {
         Get get = new Get(Bytes.toBytes(getRowKey(user, domain)));
         Result result = table.get(get);
         List<KeyValue> keyValues = result.getColumn(HRecipientRewriteTable.COLUMN_FAMILY_NAME,
@@ -239,7 +239,7 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
      * @throws RecipientRewriteTableException
      */
     private void doRemoveMapping(String user, String domain, String mapping) throws RecipientRewriteTableException {
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getRecipientRewriteTable();
             Delete delete = new Delete(Bytes.toBytes(getRowKey(user, domain)));
@@ -268,7 +268,7 @@ public class HBaseRecipientRewriteTable extends AbstractRecipientRewriteTable {
      * @throws RecipientRewriteTableException
      */
     private void doAddMapping(String user, String domain, String mapping) throws RecipientRewriteTableException {
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getRecipientRewriteTable();
             Put put = new Put(Bytes.toBytes(getRowKey(user, domain)));
