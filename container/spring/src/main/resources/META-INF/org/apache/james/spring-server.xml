@@ -122,6 +122,11 @@
 
     <import resource="classpath:META-INF/spring/quota.xml"/>
 
+    <bean id="quota" class="org.apache.james.container.spring.mailbox.MaxQuotaConfigurationReader">
+        <constructor-arg index="0" ref="maxQuotaManager"/>
+        <constructor-arg index="1" ref="quotaRootResolver"/>
+    </bean>
+
     <!-- Mailbox Copier -->
     <bean id="mailboxcopier" class="org.apache.james.mailbox.copier.MailboxCopierImpl"/>
 

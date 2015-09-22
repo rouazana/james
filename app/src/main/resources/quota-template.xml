@@ -85,6 +85,26 @@
          CLI values.
         -->
         <provider>fake</provider>
+        <!--
+        Configuration option for setting max policies for MaxQuotaManager ( message count and byte )
+        -->
+        <!--
+        <defaultMaxMessage>100000</defaultMaxMessage>
+        <defaultMaxStorage>5368709120</defaultMaxStorage>
+        -->
+        <!--
+        Configuration option for setting max values per quota root ( message count and byte )
+        -->
+        <!--
+        <maxMessage>
+            <quotaRoot>#private&amp;btellier@apache.org</quotaRoot>
+            <value>200000</value>
+        </maxMessage>
+        <maxStorage>
+            <quotaRoot>#private&amp;btellier@apache.org</quotaRoot>
+            <value>10737418240</value>
+        </maxStorage>
+        -->
     </maxQuotaManager>
     <quotaManager>
         <!--
