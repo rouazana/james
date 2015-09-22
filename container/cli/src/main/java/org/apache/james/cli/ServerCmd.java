@@ -233,10 +233,10 @@ public class ServerCmd {
             System.out.println("Storage space allowed for Quota Root "
                 + arguments[1]
                 + " : "
-                + FileUtils.byteCountToDisplaySize(probe.getMaxStorage(arguments[1])));
+                + formatStorageValue(probe.getMaxStorage(arguments[1])));
             break;
         case GETMAXMESSAGECOUNTQUOTA:
-            System.out.println("Message count allowed for Quota Root " + arguments[1] + " : " + probe.getMaxMessageCount(arguments[1]));
+            System.out.println("Message count allowed for Quota Root " + arguments[1] + " : " + formatMessageValue(probe.getMaxMessageCount(arguments[1])));
             break;
         case SETMAXSTORAGEQUOTA:
             probe.setMaxStorage(arguments[1], ValueWithUnit.parse(arguments[2]).getConvertedValue());
@@ -251,10 +251,10 @@ public class ServerCmd {
             probe.setDefaultMaxMessageCount(Long.parseLong(arguments[1]));
             break;
         case GETDEFAULTMAXSTORAGEQUOTA:
-            System.out.println("Default Maximum Storage Quota : " + FileUtils.byteCountToDisplaySize(probe.getDefaultMaxStorage()));
+            System.out.println("Default Maximum Storage Quota : " + formatStorageValue(probe.getDefaultMaxStorage()));
             break;
         case GETDEFAULTMAXMESSAGECOUNTQUOTA:
-            System.out.println("Default Maximum message count Quota : " + probe.getDefaultMaxMessageCount());
+            System.out.println("Default Maximum message count Quota : " + formatMessageValue(probe.getDefaultMaxMessageCount()));
             break;
         default:
             throw new UnrecognizedCommandException(cmdType.getCommand());
@@ -273,15 +273,35 @@ public class ServerCmd {
     private void printStorageQuota(String quotaRootString, SerializableQuota quota) {
         System.out.println(String.format("Storage quota for %s is : %s / %s",
             quotaRootString,
-            FileUtils.byteCountToDisplaySize(quota.getUsed()),
-            FileUtils.byteCountToDisplaySize(quota.getMax())));
+            formatStorageValue(quota.getUsed()),
+            formatStorageValue(quota.getMax())));
     }
 
     private void printMessageQuota(String quotaRootString, SerializableQuota quota) {
-        System.out.println(String.format("Message count quota for %s is : %d / %d",
+        System.out.println(String.format("Message count quota for %s is : %s / %s",
             quotaRootString,
-            quota.getUsed(),
-            quota.getMax()));
+            formatMessageValue(quota.getUsed()),
+            formatMessageValue(quota.getMax())));
+    }
+
+    private String formatStorageValue(long value) {
+        if (value == Quota.UNKNOWN) {
+            return ValueWithUnit.UNKNOWN;
+        }
+        if (value == Quota.UNLIMITED) {
+            return ValueWithUnit.UNLIMITED;
+        }
+        return FileUtils.byteCountToDisplaySize(value);
+    }
+
+    private String formatMessageValue(long value) {
+        if (value == Quota.UNKNOWN) {
+            return ValueWithUnit.UNKNOWN;
+        }
+        if (value == Quota.UNLIMITED) {
+            return ValueWithUnit.UNLIMITED;
+        }
+        return String.valueOf(value);
     }
 
     private void print(Map<String, Collection<String>> map, PrintStream out) {

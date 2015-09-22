@@ -21,6 +21,7 @@ package org.apache.james.cli.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.apache.james.mailbox.model.Quota;
 import org.junit.Test;
 
 public class ValueWithUnitTest {
@@ -48,6 +49,16 @@ public class ValueWithUnitTest {
     @Test
     public void testUnitG() throws Exception {
         assertThat(ValueWithUnit.parse("1G").getConvertedValue()).isEqualTo(1024 * 1024 * 1024);
+    }
+
+    @Test
+    public void testUnknown() throws Exception {
+        assertThat(ValueWithUnit.parse("unknown").getConvertedValue()).isEqualTo(Quota.UNKNOWN);
+    }
+
+    @Test
+    public void testUnlimited() throws Exception {
+        assertThat(ValueWithUnit.parse("unlimited").getConvertedValue()).isEqualTo(Quota.UNLIMITED);
     }
 
     @Test(expected = Exception.class)

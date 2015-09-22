@@ -19,10 +19,15 @@
 
 package org.apache.james.cli.utils;
 
+import org.apache.james.mailbox.model.Quota;
+
 /**
  * This class is an helper for parsing integer input that may contain units.
  */
 public class ValueWithUnit {
+
+    public static final String UNKNOWN = "UNKNOWN";
+    public static final String UNLIMITED = "UNLIMITED";
 
     /**
      * supported units : B ( 2^0 ), K ( 2^10 ), M ( 2^20 ), G ( 2^30 )
@@ -47,6 +52,12 @@ public class ValueWithUnit {
     }
 
     public static ValueWithUnit parse(String providedLongWithUnitString) throws Exception{
+        if(providedLongWithUnitString.equalsIgnoreCase(UNKNOWN)) {
+            return new ValueWithUnit(Unit.NoUnit, Quota.UNKNOWN);
+        }
+        if(providedLongWithUnitString.equalsIgnoreCase(UNLIMITED)) {
+            return new ValueWithUnit(Unit.NoUnit, Quota.UNLIMITED);
+        }
         char lastChar = providedLongWithUnitString.charAt(providedLongWithUnitString.length()-1);
         Unit unit = getUnit(lastChar);
         String argWithoutUnit = removeLastCharIfNeeded(providedLongWithUnitString, unit);
