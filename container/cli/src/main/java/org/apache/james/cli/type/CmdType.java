@@ -22,88 +22,88 @@ package org.apache.james.cli.type;
  * Enumeration of valid command types.
  */
 public enum CmdType {
-	ADDUSER("adduser", "username","password"),
-	REMOVEUSER("removeuser", "username"),
-	LISTUSERS("listusers"),
-	ADDDOMAIN("adddomain", "domainname"),
-	REMOVEDOMAIN("removedomain", "domainname"),
-	CONTAINSDOMAIN("containsdomain", "domainname"),
-	LISTDOMAINS("listdomains"),
-	LISTMAPPINGS("listmappings"),
-	LISTUSERDOMAINMAPPINGS("listuserdomainmappings", "user","domain"),
-	ADDADDRESSMAPPING("addaddressmapping", "user","domain", "fromaddress"),
-	REMOVEADDRESSMAPPING("removeaddressmapping", "user","domain", "fromaddress"),
-	ADDREGEXMAPPING("addregexmapping", "user","domain", "regex"),
-	REMOVEREGEXMAPPING("removeregexmapping", "user","domain", "regex"),
-	SETPASSWORD("setpassword", "username","password"),
-	COPYMAILBOX("copymailbox", "srcbean","dstbean"),
-	DELETEUSERMAILBOXES("deleteusermailboxes", "user"),
-	CREATEMAILBOX("createmailbox", "namespace", "user", "name"),
-	LISTUSERMAILBOXES("listusermailboxes", "user"),
-	DELETEMAILBOX("deletemailbox", "namespace", "user", "name");
+    ADDUSER("adduser", "username","password"),
+    REMOVEUSER("removeuser", "username"),
+    LISTUSERS("listusers"),
+    ADDDOMAIN("adddomain", "domainname"),
+    REMOVEDOMAIN("removedomain", "domainname"),
+    CONTAINSDOMAIN("containsdomain", "domainname"),
+    LISTDOMAINS("listdomains"),
+    LISTMAPPINGS("listmappings"),
+    LISTUSERDOMAINMAPPINGS("listuserdomainmappings", "user","domain"),
+    ADDADDRESSMAPPING("addaddressmapping", "user","domain", "fromaddress"),
+    REMOVEADDRESSMAPPING("removeaddressmapping", "user","domain", "fromaddress"),
+    ADDREGEXMAPPING("addregexmapping", "user","domain", "regex"),
+    REMOVEREGEXMAPPING("removeregexmapping", "user","domain", "regex"),
+    SETPASSWORD("setpassword", "username","password"),
+    COPYMAILBOX("copymailbox", "srcbean","dstbean"),
+    DELETEUSERMAILBOXES("deleteusermailboxes", "user"),
+    CREATEMAILBOX("createmailbox", "namespace", "user", "name"),
+    LISTUSERMAILBOXES("listusermailboxes", "user"),
+    DELETEMAILBOX("deletemailbox", "namespace", "user", "name");
 
-	private final String command;
-	private final String[] arguments;
+    private final String command;
+    private final String[] arguments;
 
-	CmdType(String command, String... arguments) {
-		this.command = command;
-		this.arguments = arguments;
-	}
+    CmdType(String command, String... arguments) {
+        this.command = command;
+        this.arguments = arguments;
+    }
 
-	/**
-	 * Validate that the number of arguments match the passed value.
-	 * 
-	 * @param arguments
-	 *            The number of argument to compare.
-	 * @return true if values match, false otherwise.
-	 */
-	public boolean hasCorrectArguments(int arguments) {
+    /**
+     * Validate that the number of arguments match the passed value.
+     *
+     * @param arguments
+     *            The number of argument to compare.
+     * @return true if values match, false otherwise.
+     */
+    public boolean hasCorrectArguments(int arguments) {
         return this.arguments.length + 1 == arguments;
 
     }
 
-	/**
-	 * Return a CmdType enumeration that matches the passed command.
-	 * 
-	 * @param command
-	 *            The command to use for lookup.
-	 * @return the CmdType enumeration that matches the passed command, or null
-	 *         if not found.
-	 */
-	public static CmdType lookup(String command) {
-		if (command != null) {
-			for (CmdType cmd : values()) {
+    /**
+     * Return a CmdType enumeration that matches the passed command.
+     *
+     * @param command
+     *            The command to use for lookup.
+     * @return the CmdType enumeration that matches the passed command, or null
+     *         if not found.
+     */
+    public static CmdType lookup(String command) {
+        if (command != null) {
+            for (CmdType cmd : values()) {
                 if (cmd.getCommand().equalsIgnoreCase(command)) {
                     return cmd;
                 }
             }
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
-	/**
-	 * Return the value of command.
-	 * 
-	 * @return the value of command.
-	 */
-	public String getCommand() {
-		return this.command;
-	}
+    /**
+     * Return the value of command.
+     *
+     * @return the value of command.
+     */
+    public String getCommand() {
+        return this.command;
+    }
 
-	/**
-	 * Return the value of arguments.
-	 * 
-	 * @return the value of arguments.
-	 */
-	public int getArgumentCount() {
-		return this.arguments.length + 1;
-	}
+    /**
+     * Return the value of arguments.
+     *
+     * @return the value of arguments.
+     */
+    public int getArgumentCount() {
+        return this.arguments.length + 1;
+    }
 
     public String getUsage() {
-		StringBuilder stringBuilder = new StringBuilder(command);
-		for(String argument : arguments) {
-			stringBuilder.append(" <" + argument + ">");
-		}
+        StringBuilder stringBuilder = new StringBuilder(command);
+        for(String argument : arguments) {
+            stringBuilder.append(" <" + argument + ">");
+        }
         return stringBuilder.toString();
     }
 }
