@@ -26,18 +26,19 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
+import org.apache.james.adapter.mailbox.SerializableQuota;
 import org.apache.james.cli.exceptions.InvalidArgumentNumberException;
 import org.apache.james.cli.exceptions.InvalidPortException;
 import org.apache.james.cli.exceptions.MissingCommandException;
 import org.apache.james.cli.exceptions.UnrecognizedCommandException;
 import org.apache.james.cli.probe.ServerProbe;
 import org.apache.james.cli.type.CmdType;
+import org.apache.james.mailbox.model.Quota;
 import org.easymock.IMocksControl;
 import org.junit.Before;
 import org.junit.Test;
@@ -327,6 +328,151 @@ public class ServerCmdTest {
         CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
 
         expect(serverProbe.listUserMailboxes(user)).andReturn(new ArrayList<String>());
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getQuotaRootCommandShouldWork() throws Exception {
+        String namespace = "#private";
+        String user = "user@domain";
+        String name = "INBOX";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETQUOTAROOT.getCommand(), namespace, user, name};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getQuotaRoot(namespace, user, name)).andReturn(namespace + "&" + user);
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getDefaultMaxMessageCountCommandShouldWork() throws Exception {
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETDEFAULTMAXMESSAGECOUNTQUOTA.getCommand()};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getDefaultMaxMessageCount()).andReturn(1024L * 1024L);
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getDefaultMaxStorageCommandShouldWork() throws Exception {
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETDEFAULTMAXSTORAGEQUOTA.getCommand()};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getDefaultMaxStorage()).andReturn(1024L * 1024L * 1024L);
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void setDefaultMaxMessageCountCommandShouldWork() throws Exception {
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.SETDEFAULTMAXMESSAGECOUNTQUOTA.getCommand(), "1054"};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+       serverProbe.setDefaultMaxMessageCount(1054);
+        expectLastCall();
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void setDefaultMaxStorageCommandShouldWork() throws Exception {
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.SETDEFAULTMAXSTORAGEQUOTA.getCommand(), "1G"};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        serverProbe.setDefaultMaxStorage(1024 * 1024 * 1024);
+        expectLastCall();
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void setMaxMessageCountCommandShouldWork() throws Exception {
+        String quotaroot = "#private&user@domain";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.SETMAXMESSAGECOUNTQUOTA.getCommand(), quotaroot, "1000"};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        serverProbe.setMaxMessageCount(quotaroot, 1000);
+        expectLastCall();
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void setMaxStorageCommandShouldWork() throws Exception {
+        String quotaroot = "#private&user@domain";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.SETMAXSTORAGEQUOTA.getCommand(), quotaroot, "5M"};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        serverProbe.setMaxStorage(quotaroot, 5 * 1024 * 1024);
+        expectLastCall();
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getMaxMessageCountCommandShouldWork() throws Exception {
+        String quotaroot = "#private&user@domain";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETMAXMESSAGECOUNTQUOTA.getCommand(), quotaroot};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getMaxMessageCount(quotaroot)).andReturn(Quota.UNLIMITED);
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getMaxStorageQuotaCommandShouldWork() throws Exception {
+        String quotaroot = "#private&user@domain";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETMAXSTORAGEQUOTA.getCommand(), quotaroot};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getMaxStorage(quotaroot)).andReturn(Quota.UNLIMITED);
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getStorageQuotaCommandShouldWork() throws Exception {
+        String quotaroot = "#private&user@domain";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETSTORAGEQUOTA.getCommand(), quotaroot};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getStorageQuota(quotaroot)).andReturn(new SerializableQuota(Quota.UNLIMITED, Quota.UNKNOWN));
+
+        control.replay();
+        testee.executeCommandLine(commandLine);
+        control.verify();
+    }
+
+    @Test
+    public void getMessageCountQuotaCommandShouldWork() throws Exception {
+        String quotaroot = "#private&user@domain";
+        String[] arguments = { "-h", "127.0.0.1", "-p", "9999", CmdType.GETMESSAGECOUNTQUOTA.getCommand(), quotaroot};
+        CommandLine commandLine = ServerCmd.parseCommandLine(arguments);
+
+        expect(serverProbe.getMessageCountQuota(quotaroot)).andReturn(new SerializableQuota(Quota.UNLIMITED, Quota.UNKNOWN));
 
         control.replay();
         testee.executeCommandLine(commandLine);

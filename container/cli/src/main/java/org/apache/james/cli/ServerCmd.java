@@ -27,7 +27,9 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.time.StopWatch;
+import org.apache.james.adapter.mailbox.SerializableQuota;
 import org.apache.james.cli.exceptions.InvalidArgumentNumberException;
 import org.apache.james.cli.exceptions.InvalidPortException;
 import org.apache.james.cli.exceptions.JamesCliException;
@@ -36,6 +38,8 @@ import org.apache.james.cli.exceptions.UnrecognizedCommandException;
 import org.apache.james.cli.probe.ServerProbe;
 import org.apache.james.cli.probe.impl.JmxServerProbe;
 import org.apache.james.cli.type.CmdType;
+import org.apache.james.cli.utils.ValueWithUnit;
+import org.apache.james.mailbox.model.Quota;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -216,6 +220,42 @@ public class ServerCmd {
         case DELETEMAILBOX:
             probe.deleteMailbox(arguments[1], arguments[2], arguments[3]);
             break;
+        case GETSTORAGEQUOTA:
+            printStorageQuota(arguments[1], probe.getStorageQuota(arguments[1]));
+            break;
+        case GETMESSAGECOUNTQUOTA:
+            printMessageQuota(arguments[1], probe.getMessageCountQuota(arguments[1]));
+            break;
+        case GETQUOTAROOT:
+            System.out.println("Quota Root : " + probe.getQuotaRoot(arguments[1], arguments[2], arguments[3]));
+            break;
+        case GETMAXSTORAGEQUOTA:
+            System.out.println("Storage space allowed for Quota Root "
+                + arguments[1]
+                + " : "
+                + FileUtils.byteCountToDisplaySize(probe.getMaxStorage(arguments[1])));
+            break;
+        case GETMAXMESSAGECOUNTQUOTA:
+            System.out.println("Message count allowed for Quota Root " + arguments[1] + " : " + probe.getMaxMessageCount(arguments[1]));
+            break;
+        case SETMAXSTORAGEQUOTA:
+            probe.setMaxStorage(arguments[1], ValueWithUnit.parse(arguments[2]).getConvertedValue());
+            break;
+        case SETMAXMESSAGECOUNTQUOTA:
+            probe.setMaxMessageCount(arguments[1], Long.parseLong(arguments[2]));
+            break;
+        case SETDEFAULTMAXSTORAGEQUOTA:
+            probe.setDefaultMaxStorage(ValueWithUnit.parse(arguments[1]).getConvertedValue());
+            break;
+        case SETDEFAULTMAXMESSAGECOUNTQUOTA:
+            probe.setDefaultMaxMessageCount(Long.parseLong(arguments[1]));
+            break;
+        case GETDEFAULTMAXSTORAGEQUOTA:
+            System.out.println("Default Maximum Storage Quota : " + FileUtils.byteCountToDisplaySize(probe.getDefaultMaxStorage()));
+            break;
+        case GETDEFAULTMAXMESSAGECOUNTQUOTA:
+            System.out.println("Default Maximum message count Quota : " + probe.getDefaultMaxMessageCount());
+            break;
         default:
             throw new UnrecognizedCommandException(cmdType.getCommand());
         }
@@ -228,6 +268,20 @@ public class ServerCmd {
             }
             out.println(Joiner.on('\n').join(data));
         }
+    }
+
+    private void printStorageQuota(String quotaRootString, SerializableQuota quota) {
+        System.out.println(String.format("Storage quota for %s is : %s / %s",
+            quotaRootString,
+            FileUtils.byteCountToDisplaySize(quota.getUsed()),
+            FileUtils.byteCountToDisplaySize(quota.getMax())));
+    }
+
+    private void printMessageQuota(String quotaRootString, SerializableQuota quota) {
+        System.out.println(String.format("Message count quota for %s is : %d / %d",
+            quotaRootString,
+            quota.getUsed(),
+            quota.getMax()));
     }
 
     private void print(Map<String, Collection<String>> map, PrintStream out) {

@@ -32,8 +32,11 @@ import javax.management.remote.JMXServiceURL;
 
 import org.apache.james.adapter.mailbox.MailboxCopierManagementMBean;
 import org.apache.james.adapter.mailbox.MailboxManagerManagementMBean;
+import org.apache.james.adapter.mailbox.QuotaManagementMBean;
+import org.apache.james.adapter.mailbox.SerializableQuota;
 import org.apache.james.cli.probe.ServerProbe;
 import org.apache.james.domainlist.api.DomainListManagementMBean;
+import org.apache.james.mailbox.exception.MailboxException;
 import org.apache.james.rrt.api.RecipientRewriteTableManagementMBean;
 import org.apache.james.user.api.UsersRepositoryManagementMBean;
 
@@ -45,6 +48,7 @@ public class JmxServerProbe implements ServerProbe {
     private final static String USERSREPOSITORY_OBJECT_NAME = "org.apache.james:type=component,name=usersrepository";
     private final static String MAILBOXCOPIER_OBJECT_NAME = "org.apache.james:type=component,name=mailboxcopier";
     private final static String MAILBOXMANAGER_OBJECT_NAME = "org.apache.james:type=component,name=mailboxmanagerbean";
+    private final static String QUOTAMANAGER_OBJECT_NAME = "org.apache.james:type=component,name=quotamanagerbean";
 
     private JMXConnector jmxc;
     
@@ -53,6 +57,7 @@ public class JmxServerProbe implements ServerProbe {
     private UsersRepositoryManagementMBean usersRepositoryProxy;
     private MailboxCopierManagementMBean mailboxCopierManagement;
     private MailboxManagerManagementMBean mailboxManagerManagement;
+    private QuotaManagementMBean quotaManagement;
 
     private static final String fmtUrl = "service:jmx:rmi:///jndi/rmi://%s:%d/jmxrmi";
     private static final int defaultPort = 9999;
@@ -110,6 +115,9 @@ public class JmxServerProbe implements ServerProbe {
             name = new ObjectName(MAILBOXMANAGER_OBJECT_NAME);
             mailboxManagerManagement = MBeanServerInvocationHandler.newProxyInstance(
                     mbeanServerConn, name, MailboxManagerManagementMBean.class, true);
+            name = new ObjectName(QUOTAMANAGER_OBJECT_NAME);
+            quotaManagement = MBeanServerInvocationHandler.newProxyInstance(
+                    mbeanServerConn, name, QuotaManagementMBean.class, true);
         } catch (MalformedObjectNameException e) {
             throw new RuntimeException("Invalid ObjectName? Please report this as a bug.", e);
         }
@@ -213,5 +221,60 @@ public class JmxServerProbe implements ServerProbe {
     @Override
     public void deleteMailbox(String namespace, String user, String name) {
         mailboxManagerManagement.deleteMailbox(namespace, user, name);
+    }
+
+    @Override
+    public String getQuotaRoot(String namespace, String user, String name) throws MailboxException {
+        return quotaManagement.getQuotaRoot(namespace, user, name);
+    }
+
+    @Override
+    public SerializableQuota getMessageCountQuota(String quotaRoot) throws MailboxException {
+        return quotaManagement.getMessageCountQuota(quotaRoot);
+    }
+
+    @Override
+    public SerializableQuota getStorageQuota(String quotaRoot) throws MailboxException {
+        return quotaManagement.getStorageQuota(quotaRoot);
+    }
+
+    @Override
+    public long getMaxMessageCount(String quotaRoot) throws MailboxException {
+        return quotaManagement.getMaxMessageCount(quotaRoot);
+    }
+
+    @Override
+    public long getMaxStorage(String quotaRoot) throws MailboxException {
+        return quotaManagement.getMaxStorage(quotaRoot);
+    }
+
+    @Override
+    public long getDefaultMaxMessageCount() throws MailboxException {
+        return quotaManagement.getDefaultMaxMessageCount();
+    }
+
+    @Override
+    public long getDefaultMaxStorage() throws MailboxException {
+        return quotaManagement.getDefaultMaxStorage();
+    }
+
+    @Override
+    public void setMaxMessageCount(String quotaRoot, long maxMessageCount) throws MailboxException {
+        quotaManagement.setMaxMessageCount(quotaRoot, maxMessageCount);
+    }
+
+    @Override
+    public void setMaxStorage(String quotaRoot, long maxSize) throws MailboxException {
+        quotaManagement.setMaxStorage(quotaRoot, maxSize);
+    }
+
+    @Override
+    public void setDefaultMaxMessageCount(long maxDefaultMessageCount) throws MailboxException {
+        quotaManagement.setDefaultMaxMessageCount(maxDefaultMessageCount);
+    }
+
+    @Override
+    public void setDefaultMaxStorage(long maxDefaultSize) throws MailboxException {
+        quotaManagement.setDefaultMaxStorage(maxDefaultSize);
     }
 }

@@ -138,6 +138,61 @@ public class CmdTypeTest {
         assertThat(CmdType.lookup("deletemailbox")).isEqualTo(CmdType.DELETEMAILBOX);
     }
 
+    @Test
+    public void lookupSetDefaultMaxStorageQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("setdefaultmaxstoragequota")).isEqualTo(CmdType.SETDEFAULTMAXSTORAGEQUOTA);
+    }
+
+    @Test
+    public void lookupSetDefaultMaxMessageCountQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("setdefaultmaxmessagecountquota")).isEqualTo(CmdType.SETDEFAULTMAXMESSAGECOUNTQUOTA);
+    }
+
+    @Test
+    public void lookupGetDefaultMaxStorageQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getdefaultmaxstoragequota")).isEqualTo(CmdType.GETDEFAULTMAXSTORAGEQUOTA);
+    }
+
+    @Test
+    public void lookupGetDefaultMaxMessageCountQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getdefaultmaxmessagecountquota")).isEqualTo(CmdType.GETDEFAULTMAXMESSAGECOUNTQUOTA);
+    }
+
+    @Test
+    public void lookupSetMaxStorageQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("setmaxstoragequota")).isEqualTo(CmdType.SETMAXSTORAGEQUOTA);
+    }
+
+    @Test
+    public void lookupSetMaxMessageCountQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("setmaxmessagecountquota")).isEqualTo(CmdType.SETMAXMESSAGECOUNTQUOTA);
+    }
+
+    @Test
+    public void lookupGetMaxStorageQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getmaxstoragequota")).isEqualTo(CmdType.GETMAXSTORAGEQUOTA);
+    }
+
+    @Test
+    public void lookupGetMaxMessageCountQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getmaxmessagecountquota")).isEqualTo(CmdType.GETMAXMESSAGECOUNTQUOTA);
+    }
+
+    @Test
+    public void lookupGetStorageQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getstoragequota")).isEqualTo(CmdType.GETSTORAGEQUOTA);
+    }
+
+    @Test
+    public void lookupGetMessageCountQuotaShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getmessagecountquota")).isEqualTo(CmdType.GETMESSAGECOUNTQUOTA);
+    }
+
+    @Test
+    public void lookupGetQuotaRootShouldReturnEnumValue() {
+        assertThat(CmdType.lookup("getquotaroot")).isEqualTo(CmdType.GETQUOTAROOT);
+    }
+
     @Test 
     public void lookupEmptyStringShouldReturnNull() {
         assertThat(CmdType.lookup("")).isNull();

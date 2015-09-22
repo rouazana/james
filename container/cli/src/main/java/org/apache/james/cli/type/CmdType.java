@@ -40,7 +40,18 @@ public enum CmdType {
     DELETEUSERMAILBOXES("deleteusermailboxes", "user"),
     CREATEMAILBOX("createmailbox", "namespace", "user", "name"),
     LISTUSERMAILBOXES("listusermailboxes", "user"),
-    DELETEMAILBOX("deletemailbox", "namespace", "user", "name");
+    DELETEMAILBOX("deletemailbox", "namespace", "user", "name"),
+    GETSTORAGEQUOTA("getstoragequota", "quotaroot"),
+    GETMESSAGECOUNTQUOTA("getmessagecountquota", "quotaroot"),
+    GETQUOTAROOT("getquotaroot", "namespace", "user", "name"),
+    GETMAXSTORAGEQUOTA("getmaxstoragequota", "quotaroot"),
+    GETMAXMESSAGECOUNTQUOTA("getmaxmessagecountquota", "quotaroot"),
+    SETMAXSTORAGEQUOTA("setmaxstoragequota", "quotaroot", "max_message_count"),
+    SETMAXMESSAGECOUNTQUOTA("setmaxmessagecountquota", "quotaroot", "max_storage"),
+    SETDEFAULTMAXSTORAGEQUOTA("setdefaultmaxstoragequota", "max_storage"),
+    SETDEFAULTMAXMESSAGECOUNTQUOTA("setdefaultmaxmessagecountquota", "max_message_count"),
+    GETDEFAULTMAXSTORAGEQUOTA("getdefaultmaxstoragequota"),
+    GETDEFAULTMAXMESSAGECOUNTQUOTA("getdefaultmaxmessagecountquota");
 
     private final String command;
     private final String[] arguments;
