@@ -34,10 +34,12 @@
         <constructor-arg index="1" ref="subscriptionManager"/>
         <!-- The mailboxTyper -->
         <constructor-arg index="2" value="#{null}"/>
+        <constructor-arg index="3" ref="quotaManager"/>
+        <constructor-arg index="4" ref="quotaRootResolver"/>
         <!-- The idleKeepAlive -->
-        <constructor-arg index="3" value="120"/>
+        <constructor-arg index="5" value="120"/>
         <!-- The list of disabled capabilities -->
-        <constructor-arg index="4">
+        <constructor-arg index="6">
             <set>
                 <value>ACL</value>
                 <value>MOVE</value>

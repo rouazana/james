@@ -117,6 +117,11 @@
 
     <import resource="classpath:META-INF/spring/spring-mailbox.xml"/>
 
+    <!-- Quotas -->
+    <bean class="org.apache.james.container.spring.bean.factorypostprocessor.QuotaBeanFactoryPostProcessor"/>
+
+    <import resource="classpath:META-INF/spring/quota.xml"/>
+
     <!-- Mailbox Copier -->
     <bean id="mailboxcopier" class="org.apache.james.mailbox.copier.MailboxCopierImpl"/>
 
@@ -237,7 +242,11 @@
     <bean id="domainlistmanagement" class="org.apache.james.domainlist.lib.DomainListManagement"/>
     <bean id="mailboxmanagermanagementbean" class="org.apache.james.adapter.mailbox.MailboxManagerManagement"/>
     <bean id="mailboxcopiermanagement" class="org.apache.james.adapter.mailbox.MailboxCopierManagement"/>
-    <bean id="quotamanagermanagement" class="org.apache.james.adapter.mailbox.QuotaManagement"/>
+    <bean id="quotamanagermanagement" class="org.apache.james.adapter.mailbox.QuotaManagement">
+        <property name="maxQuotaManager" ref="maxQuotaManager"/>
+        <property name="quotaRootResolver" ref="quotaRootResolver"/>
+        <property name="quotaManager" ref="quotaManager"/>
+    </bean>
     <!--
         <bean id="james23importermanagement" class="org.apache.james.container.spring.tool.James23ImporterManagement" />
     -->
