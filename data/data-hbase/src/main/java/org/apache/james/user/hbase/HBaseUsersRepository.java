@@ -28,7 +28,7 @@ import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Get;
-import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.HTableInterface;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
@@ -102,7 +102,7 @@ public class HBaseUsersRepository extends AbstractUsersRepository {
      */
     @Override
     public void removeUser(String name) throws UsersRepositoryException {
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getUsersRepositoryTable();
             Delete delete = new Delete(Bytes.toBytes(name));
@@ -150,13 +150,13 @@ public class HBaseUsersRepository extends AbstractUsersRepository {
      */
     @Override
     public int countUsers() throws UsersRepositoryException {
-        HTable table = null;
+        HTableInterface table = null;
         ResultScanner resultScanner = null;
         try {
             table = TablePool.getInstance().getUsersRepositoryTable();
             Scan scan = new Scan();
             scan.addFamily(HUsersRepository.COLUMN_FAMILY_NAME);
-            scan.setCaching(table.getScannerCaching() * 2);
+            scan.setCaching(table.getConfiguration().getInt("hbase.client.scanner.caching", 1) * 2);
             resultScanner = table.getScanner(scan);
             int resultCount = 0;
             Result result = null;
@@ -187,13 +187,13 @@ public class HBaseUsersRepository extends AbstractUsersRepository {
     @Override
     public Iterator<String> list() throws UsersRepositoryException {
         List<String> list = new ArrayList<String>();
-        HTable table = null;
+        HTableInterface table = null;
         ResultScanner resultScanner = null;
         try {
             table = TablePool.getInstance().getUsersRepositoryTable();
             Scan scan = new Scan();
             scan.addFamily(HUsersRepository.COLUMN_FAMILY_NAME);
-            scan.setCaching(table.getScannerCaching() * 2);
+            scan.setCaching(table.getConfiguration().getInt("hbase.client.scanner.caching", 1) * 2);
             resultScanner = table.getScanner(scan);
             Result result;
             while ((result = resultScanner.next()) != null) {
@@ -235,7 +235,7 @@ public class HBaseUsersRepository extends AbstractUsersRepository {
      * @throws UsersRepositoryException
      */
     private KeyValue getKeyValue(String username) throws UsersRepositoryException {
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getUsersRepositoryTable();
             Get get = new Get(Bytes.toBytes(username));
@@ -270,7 +270,7 @@ public class HBaseUsersRepository extends AbstractUsersRepository {
                 throw new UsersRepositoryException(username + " already exists.");
             }
         }
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getUsersRepositoryTable();
             Put put = new Put(Bytes.toBytes(username));

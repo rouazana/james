@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Get;
-import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.HTableInterface;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
@@ -52,7 +52,7 @@ public class HBaseDomainList extends AbstractDomainList {
      */
     @Override
     public boolean containsDomain(String domain) throws DomainListException {
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getDomainlistTable();
             Get get = new Get(Bytes.toBytes(domain));
@@ -84,7 +84,7 @@ public class HBaseDomainList extends AbstractDomainList {
         if (containsDomain(lowerCasedDomain)) {
             throw new DomainListException(lowerCasedDomain + " already exists.");
         }
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getDomainlistTable();
             Put put = new Put(Bytes.toBytes(lowerCasedDomain));
@@ -107,7 +107,7 @@ public class HBaseDomainList extends AbstractDomainList {
 
     @Override
     public void removeDomain(String domain) throws DomainListException {
-        HTable table = null;
+        HTableInterface table = null;
         try {
             table = TablePool.getInstance().getDomainlistTable();
             Delete delete = new Delete(Bytes.toBytes(domain));
@@ -133,13 +133,13 @@ public class HBaseDomainList extends AbstractDomainList {
     @Override
     protected List<String> getDomainListInternal() throws DomainListException {
         List<String> list = new ArrayList<String>();
-        HTable table = null;
+        HTableInterface table = null;
         ResultScanner resultScanner = null;
         try {
             table = TablePool.getInstance().getDomainlistTable();
             Scan scan = new Scan();
             scan.addFamily(HDomainList.COLUMN_FAMILY_NAME);
-            scan.setCaching(table.getScannerCaching() * 2);
+            scan.setCaching(table.getConfiguration().getInt("hbase.client.scanner.caching", 1) * 2);
             resultScanner = table.getScanner(scan);
             Result result;
             while ((result = resultScanner.next()) != null) {

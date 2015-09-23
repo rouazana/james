@@ -19,12 +19,13 @@
 package org.apache.james.system.hbase;
 
 import java.io.IOException;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
-import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.HTableInterface;
 import org.apache.hadoop.hbase.client.HTablePool;
 import org.apache.james.domainlist.hbase.def.HDomainList;
 import org.apache.james.rrt.api.RecipientRewriteTable;
@@ -85,8 +86,8 @@ public class TablePool {
      *
      * @return An instance of {@link HDomainList}
      */
-    public HTable getDomainlistTable() {
-        return (HTable) htablePool.getTable(HDomainList.TABLE_NAME);
+    public HTableInterface getDomainlistTable() {
+        return htablePool.getTable(HDomainList.TABLE_NAME);
     }
 
     /**
@@ -94,8 +95,8 @@ public class TablePool {
      *
      * @return An instance of {@link RecipientRewriteTable}
      */
-    public HTable getRecipientRewriteTable() {
-        return (HTable) htablePool.getTable(HRecipientRewriteTable.TABLE_NAME);
+    public HTableInterface getRecipientRewriteTable() {
+        return htablePool.getTable(HRecipientRewriteTable.TABLE_NAME);
     }
 
     /**
@@ -103,8 +104,8 @@ public class TablePool {
      *
      * @return An instance of {@link UsersRepository}
      */
-    public HTable getUsersRepositoryTable() {
-        return (HTable) htablePool.getTable(HUsersRepository.TABLE_NAME);
+    public HTableInterface getUsersRepositoryTable() {
+        return htablePool.getTable(HUsersRepository.TABLE_NAME);
     }
 
     /**
