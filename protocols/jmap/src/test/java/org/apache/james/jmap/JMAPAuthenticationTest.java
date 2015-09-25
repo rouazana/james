@@ -31,6 +31,7 @@ import static org.mockito.Mockito.when;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.Filter;
 
@@ -81,7 +82,7 @@ public class JMAPAuthenticationTest {
         mockedUsersRepository = mock(UsersRepository.class);
         mockedZonedDateTimeProvider = mock(ZonedDateTimeProvider.class);
         continuationTokenManager = new SignedContinuationTokenManager(new JamesSignatureHandlerProvider().provide(), mockedZonedDateTimeProvider);
-        accessTokenManager = new AccessTokenManagerImpl(new MemoryAccessTokenRepository(3600000));
+        accessTokenManager = new AccessTokenManagerImpl(new MemoryAccessTokenRepository(TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)));
 
         AuthenticationServlet authenticationServlet = new AuthenticationServlet();
         authenticationServlet.setUsersRepository(mockedUsersRepository);
