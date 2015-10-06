@@ -45,8 +45,9 @@ public class BypassOnPostFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest)request;
         if ("POST".equals(httpRequest.getMethod())) {
             chain.doFilter(request, response);
+        } else {
+            nestedFilter.doFilter(httpRequest, response, chain);
         }
-        nestedFilter.doFilter(httpRequest, response, chain);
     }
 
     @Override

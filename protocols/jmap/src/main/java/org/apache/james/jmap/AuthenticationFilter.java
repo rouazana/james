@@ -19,6 +19,7 @@
 package org.apache.james.jmap;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -47,16 +48,18 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest)request;
-        String authHeader = httpRequest.getHeader("Authorization");
-        if (authHeader == null || !checkAuthorizationHeader(authHeader)) {
+        Optional<String> authHeader = Optional.ofNullable(httpRequest.getHeader("Authorization"));
+        if (!checkAuthorizationHeader(authHeader)) {
             ((HttpServletResponse)response).sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
         chain.doFilter(request, response);
     }
 
-    private boolean checkAuthorizationHeader(String authHeader) throws IOException {
-        return accessTokenManager.isValid(AccessToken.fromString(authHeader));
+    private boolean checkAuthorizationHeader(Optional<String> authHeader) throws IOException {
+        return authHeader
+                .map(x -> accessTokenManager.isValid(AccessToken.fromString(x)))
+                .orElse(false);
     }
 
     @Override
